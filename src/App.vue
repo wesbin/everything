@@ -1,37 +1,40 @@
 <template>
   <div id="app">
     <div class="container">
+      <!-- 1 - 1 -->
       <div class="item"></div>
+      <!-- 1 - 2 -->
       <div class="item"></div>
-      <div class="item"></div>
-
-      <div class="item"></div>
-      <div class="item clock">
-        <div>{{ this.getClock }}</div>
+      <!-- 1 - 3 -->
+      <div class="item">
       </div>
+
+      <!-- 1 - 1 -->
+      <div class="item"></div>
+      <!-- 2 - 2 -->
+      <div class="item">
+        <Clock></Clock>
+      </div>
+      <!-- 2 - 3 -->
       <div class="item"></div>
 
+      <!-- 3 - 1 -->
       <div class="item"></div>
+      <!-- 3 - 2 -->
       <div class="item"></div>
+      <!-- 3 - 3 -->
       <div class="item"></div>
     </div>
-
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import Clock from '@/Clock'
 
 export default {
   name: 'App',
-  computed: {
-    ...mapGetters(['getClock']),
-  },
-  methods: {
-    ...mapActions(['ticTacClock'])
-  },
-  created() {
-    this.ticTacClock()
+  components: {
+    Clock
   }
 }
 </script>
@@ -54,10 +57,8 @@ body {
   justify-content: center;
   align-items: center;
 }
-/*.item:nth-child(even) {*/
-/*  background-color: #C9CEC0;*/
-/*}*/
-.clock {
-  font-size: 7em;
+.item:nth-child(even) {
+  background-color: #C9CEC0;
 }
+
 </style>

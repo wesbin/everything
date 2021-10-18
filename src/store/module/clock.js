@@ -1,33 +1,34 @@
-const getCurrentTime = () => {
-  const date = new Date()
-  const hours = date.getHours().toString().padStart(2, '0')
-  const minutes = date.getMinutes().toString().padStart(2, '0')
-  const seconds = date.getSeconds().toString().padStart(2, '0')
-  return `${hours} : ${minutes} : ${seconds}`
-}
-
 const state = {
-  clock: getCurrentTime()
+  time: '',
+  date: ''
 }
 
 const getters = {
-  getClock() {
-    return state.clock
+  getTime() {
+    return state.time
+  },
+  getDate() {
+    return state.date
   }
 }
 
 const mutations = {
-  setClock(state, { time }) {
-    state.clock = time
+  setTime(state) {
+    const date = new Date()
+    const hours = date.getHours().toString().padStart(2, '0')
+    const minutes = date.getMinutes().toString().padStart(2, '0')
+    const seconds = date.getSeconds().toString().padStart(2, '0')
+    state.time = `${hours} : ${minutes} : ${seconds}`
+  },
+  setDate(state) {
+    state.date = new Date().toLocaleDateString()
   }
 }
 
 const actions = {
   ticTacClock({ commit }, ) {
     setInterval(() => {
-      commit('setClock', {
-        time: getCurrentTime()
-      })
+      commit('setTime')
     }, 1000)
   }
 }
