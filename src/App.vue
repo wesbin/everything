@@ -2,7 +2,9 @@
   <div id="app">
     <div class="container">
       <!-- 1 - 1 -->
-      <div class="item"></div>
+      <div class="item">
+        <Todo></Todo>
+      </div>
       <!-- 1 - 2 -->
       <div class="item"></div>
       <!-- 1 - 3 -->
@@ -30,19 +32,26 @@
 
 <script>
 import Clock from '@/Clock'
+import Todo from './Todo'
 
 export default {
   name: 'App',
   components: {
-    Clock
+    Clock,
+    Todo
   }
 }
 </script>
 
 <style>
+@font-face {
+  font-family: 'AppleSDGothicNeoL';
+  src: url("../public/font/AppleSDGothicNeoL.ttf") format('truetype');
+}
 body {
+  font-family: AppleSDGothicNeoL, sans-serif;
   background-color: #1D2132;
-  color: #C9CEC0;
+  color: #ffffff;
   margin: 0;
 }
 .container {
@@ -57,8 +66,7 @@ body {
   justify-content: center;
   align-items: center;
 }
-.item:nth-child(even) {
-  background-color: #C9CEC0;
-}
-
+/*.item:nth-child(even) {*/
+/*  background-color: #C9CEC0;*/
+/*}*/
 </style>

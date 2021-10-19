@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="time">
-      {{ this.getTime }}
+      {{ this.getTime.hours }}
+      <span>:</span>
+      {{ this.getTime.minutes }}
     </div>
     <div class="date">
       {{ this.getDate }}
@@ -10,7 +12,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapGetters, mapActions, mapMutations } = createNamespacedHelpers('clock')
 
 export default {
   name: 'Clock',
@@ -24,16 +28,16 @@ export default {
   created() {
     this.ticTacClock()
     this.setDate()
-  }
+  },
 }
 </script>
 
 <style scoped>
 .time {
-  font-size: 7em;
+  font-size: 12em;
 }
 .date {
-  font-size: 4em;
+  font-size: 2em;
   text-align: right;
 }
 </style>
