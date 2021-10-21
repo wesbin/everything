@@ -2,7 +2,7 @@
   <div>
     <div class="time">
       {{ this.getTime.hours }}
-      <span>:</span>
+      <span class="blink">:</span>
       {{ this.getTime.minutes }}
     </div>
     <div class="date">
@@ -14,7 +14,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 
-const { mapGetters, mapActions, mapMutations } = createNamespacedHelpers('clock')
+const { mapGetters, mapActions } = createNamespacedHelpers('clock')
 
 export default {
   name: 'Clock',
@@ -22,12 +22,10 @@ export default {
     ...mapGetters(['getTime', 'getDate']),
   },
   methods: {
-    ...mapActions(['ticTacClock']),
-    ...mapMutations(['setDate'])
+    ...mapActions(['initClock']),
   },
   created() {
-    this.ticTacClock()
-    this.setDate()
+    this.initClock()
   },
 }
 </script>
@@ -35,7 +33,19 @@ export default {
 <style scoped>
 .time {
   font-size: 12em;
+  line-height: 90%;
 }
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: blink 2s step-end infinite;
+}
+
 .date {
   font-size: 2em;
   text-align: right;

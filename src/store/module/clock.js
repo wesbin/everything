@@ -26,7 +26,11 @@ const clock = {
     }
   },
   actions: {
-    ticTacClock({ commit }) {
+    initClock({ commit, dispatch }) {
+      dispatch('ticTac')
+      commit('setDate')
+    },
+    ticTac({ commit }) {
       commit('setTime')
       setInterval(() => {
         commit('setTime')
