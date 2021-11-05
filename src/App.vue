@@ -2,20 +2,20 @@
   <div id="app">
     <div class="container">
       <Clock></Clock>
-      <FloatMenu></FloatMenu>
+      <FloatButton></FloatButton>
     </div>
   </div>
 </template>
 
 <script>
 import Clock from '@/components/Clock'
-import FloatMenu from '@/components/FloatMenu';
+import FloatButton from '@/components/FloatButton';
 
 export default {
   name: 'App',
   components: {
+    FloatButton,
     Clock,
-    FloatMenu
   },
 }
 </script>
