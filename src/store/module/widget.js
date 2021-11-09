@@ -1,4 +1,4 @@
-const utility = {
+const widget = {
   namespaced: true,
   state: {},
   getters: {},
@@ -6,4 +6,4 @@ const utility = {
   actions: {},
 };
 
-export default utility;
+export default widget;
