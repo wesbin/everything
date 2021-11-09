@@ -2,36 +2,36 @@
   <div id="app">
     <div class="container">
       <Clock></Clock>
-      <FloatButton></FloatButton>
+      <FloatMenu></FloatMenu>
     </div>
   </div>
 </template>
 
 <script>
-import Clock from '@/components/Clock'
-import FloatButton from '@/components/FloatButton';
+import Clock from "@/components/Clock";
+import FloatMenu from "@/components/FloatMenu";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    FloatButton,
+    FloatMenu,
     Clock,
   },
-}
+};
 </script>
 
 <style lang="scss">
 @font-face {
-  font-family: 'AppleSDGothicNeoL';
-  src: url("../public/font/AppleSDGothicNeoL.ttf") format('truetype');
+  font-family: "AppleSDGothicNeoL";
+  src: url("../public/font/AppleSDGothicNeoL.ttf") format("truetype");
 }
 body {
   font-family: AppleSDGothicNeoL, sans-serif;
-  color: #ffffff;
+  color: $font;
   margin: 0;
 }
 .container {
-  background-color: #1D2132;
+  background-color: $background;
   width: 100vw;
   height: 100vh;
   display: flex;

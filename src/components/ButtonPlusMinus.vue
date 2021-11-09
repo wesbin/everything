@@ -1,7 +1,5 @@
 <template>
-  <button
-      class="plus-minus"
-      :class="{open: toggle}">
+  <button class="plus-minus" :class="{ open: toggle }" @click="toggleMenu">
     <span class="plus"></span>
     <span class="minus"></span>
   </button>
@@ -9,19 +7,24 @@
 
 <script>
 export default {
-  name: 'PlusMinus',
+  name: "ButtonPlusMinus",
   props: {
     toggle: {
       type: Boolean,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
+  methods: {
+    toggleMenu() {
+      this.$emit("click");
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .plus-minus {
-  color: #ffffff;
+  color: $font;
   background: transparent;
   width: 25px;
   height: 25px;

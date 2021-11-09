@@ -12,17 +12,17 @@
 </template>
 
 <script>
-import {createNamespacedHelpers} from 'vuex';
+import { createNamespacedHelpers } from "vuex";
 
-const {mapGetters, mapActions} = createNamespacedHelpers('clock');
+const { mapGetters, mapActions } = createNamespacedHelpers("clock");
 
 export default {
-  name: 'Clock',
+  name: "Clock",
   computed: {
-    ...mapGetters(['getTime', 'getDate']),
+    ...mapGetters(["getTime", "getDate"]),
   },
   methods: {
-    ...mapActions(['initClock']),
+    ...mapActions(["initClock"]),
   },
   created() {
     this.initClock();
