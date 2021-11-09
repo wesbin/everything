@@ -1,10 +1,14 @@
 <template>
-  <div class="float-menu-list" v-show="toggle">FLOAT-MENU</div>
+  <div class="widget-list" v-show="toggle">
+    <Widget></Widget>
+  </div>
 </template>
 
 <script>
+import Widget from "@/components/Widget";
 export default {
-  name: "FloatMenuList",
+  name: "WidgetList",
+  components: { Widget },
   props: {
     toggle: {
       type: Boolean,
@@ -15,7 +19,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.float-menu-list {
+.widget-list {
   background: $float-menu;
 }
 </style>
