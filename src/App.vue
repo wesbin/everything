@@ -33,6 +33,7 @@ body {
   font-family: AppleSDGothicNeoL, sans-serif;
   color: $font;
   margin: 0;
+  overflow: hidden;
 }
 .container {
   background-color: $background;

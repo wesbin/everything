@@ -14,6 +14,7 @@
 import ButtonPlusMinus from '@/components/ButtonPlusMinus';
 import WidgetList from '@/components/WidgetList';
 import float from '@/mixins/float';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'FloatMenu',
@@ -24,9 +25,12 @@ export default {
       toggle: false,
     };
   },
+  computed: {
+    ...mapGetters(['getDrag']),
+  },
   methods: {
     toggleMenu() {
-      if (!this.drag) {
+      if (!this.getDrag) {
         this.toggle = !this.toggle;
       }
     },
