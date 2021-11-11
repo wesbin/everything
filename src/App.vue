@@ -3,17 +3,21 @@
     <div class="container">
       <Clock></Clock>
       <FloatMenu></FloatMenu>
+      <WidgetLoader></WidgetLoader>
     </div>
   </div>
 </template>
 
 <script>
-import Clock from "@/components/Clock";
-import FloatMenu from "@/components/FloatMenu";
+import Clock from '@/components/Clock';
+import FloatMenu from '@/components/FloatMenu';
+
+import WidgetLoader from '@/components/WidgetLoader';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
+    WidgetLoader,
     FloatMenu,
     Clock,
   },
@@ -22,8 +26,8 @@ export default {
 
 <style lang="scss">
 @font-face {
-  font-family: "AppleSDGothicNeoL";
-  src: url("../public/font/AppleSDGothicNeoL.ttf") format("truetype");
+  font-family: 'AppleSDGothicNeoL';
+  src: url('../public/font/AppleSDGothicNeoL.ttf') format('truetype');
 }
 body {
   font-family: AppleSDGothicNeoL, sans-serif;

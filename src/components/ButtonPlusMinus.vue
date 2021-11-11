@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "ButtonPlusMinus",
+  name: 'ButtonPlusMinus',
   props: {
     toggle: {
       type: Boolean,
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     toggleMenu() {
-      this.$emit("toggle");
+      this.$emit('toggle');
     },
   },
 };
@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 .plus-minus {
-  color: $font;
+  //color: $font;
   background: transparent;
   width: 25px;
   height: 25px;

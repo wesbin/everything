@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import ButtonPlusMinus from "@/components/ButtonPlusMinus";
-import WidgetList from "@/components/WidgetList";
-import float from "@/mixins/float";
+import ButtonPlusMinus from '@/components/ButtonPlusMinus';
+import WidgetList from '@/components/WidgetList';
+import float from '@/mixins/float';
 
 export default {
-  name: "FloatMenu",
+  name: 'FloatMenu',
   components: { WidgetList, ButtonPlusMinus },
   mixins: [float],
   data() {

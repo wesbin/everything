@@ -1,19 +1,24 @@
 <template>
   <div class="widget-list" v-show="toggle">
-    <Widget></Widget>
+    <div class="widget" @click="addMemo">Memo</div>
   </div>
 </template>
 
 <script>
-import Widget from "@/components/Widget";
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapMutations } = createNamespacedHelpers('widget');
+
 export default {
-  name: "WidgetList",
-  components: { Widget },
+  name: 'WidgetList',
   props: {
     toggle: {
       type: Boolean,
       required: true,
     },
+  },
+  methods: {
+    ...mapMutations(['addMemo']),
   },
 };
 </script>
@@ -21,5 +26,11 @@ export default {
 <style lang="scss" scoped>
 .widget-list {
   background: $float-menu;
+
+  .widget {
+    padding-left: 4px;
+    padding-top: 4px;
+    cursor: pointer;
+  }
 }
 </style>

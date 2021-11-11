@@ -3,10 +3,10 @@ export default {
     return {
       drag: false,
       positions: {
-        clientX: "",
-        clientY: "",
-        movementX: "",
-        movementY: "",
+        clientX: '',
+        clientY: '',
+        movementX: '',
+        movementY: '',
       },
     };
   },
@@ -29,9 +29,9 @@ export default {
       this.positions.clientY = event.clientY;
       // set the element's new position:
       this.$refs.float.style.top =
-        this.$refs.float.offsetTop - this.positions.movementY + "px";
+        this.$refs.float.offsetTop - this.positions.movementY + 'px';
       this.$refs.float.style.left =
-        this.$refs.float.offsetLeft - this.positions.movementX + "px";
+        this.$refs.float.offsetLeft - this.positions.movementX + 'px';
     },
     closeDragElement() {
       document.onmouseup = null;

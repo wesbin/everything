@@ -1,17 +1,23 @@
 <template>
-  <div class="widget">Memo</div>
+  <component :is="componentLoader"></component>
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
+
 export default {
-  name: "Widget",
+  name: 'Widget',
+  props: {
+    widget: {
+      type: String,
+    },
+  },
+  computed: {
+    componentLoader() {
+      return defineAsyncComponent(() => import('@/components/widget/Memo'));
+    },
+  },
 };
 </script>
 
-<style scoped>
-.widget {
-  padding-left: 4px;
-  padding-top: 4px;
-  cursor: pointer;
-}
-</style>
+<style scoped></style>

@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import float from "@/mixins/float";
+import float from '@/mixins/float';
 
 export default {
-  name: "Memo",
+  name: 'Memo',
   mixins: [float],
 };
 </script>
@@ -14,7 +14,6 @@ export default {
 <style lang="scss" scoped>
 .memo {
   position: absolute;
-  z-index: 9;
   background: $float-menu;
   width: 100px;
   height: 100px;
