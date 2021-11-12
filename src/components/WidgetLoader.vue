@@ -5,9 +5,7 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-
-const { mapGetters } = createNamespacedHelpers('widget');
+import { mapGetters } from 'vuex';
 
 import Widget from '@/components/Widget';
 
@@ -15,7 +13,7 @@ export default {
   name: 'WidgetLoader',
   components: { Widget },
   computed: {
-    ...mapGetters(['getWidgetList']),
+    ...mapGetters('widget', ['getWidgetList']),
   },
 };
 </script>

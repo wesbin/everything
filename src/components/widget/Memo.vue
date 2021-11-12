@@ -1,5 +1,10 @@
 <template>
-  <div class="memo" @mousedown="dragMouseDown" ref="float">TEST</div>
+  <div class="memo" ref="float" :style="widgetStyle">
+    <div class="header" @mousedown="dragMouseDown"></div>
+    <div>
+      <textarea class="content"></textarea>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -8,14 +13,32 @@ import float from '@/mixins/float';
 export default {
   name: 'Memo',
   mixins: [float],
+  props: {
+    widgetStyle: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .memo {
+  display: grid;
+  grid-template-rows: 10px auto;
   position: absolute;
   background: $float-menu;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
+  resize: both;
+  overflow: hidden;
+  z-index: 10;
+  .header {
+    background: $menu-header;
+  }
+  .content {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

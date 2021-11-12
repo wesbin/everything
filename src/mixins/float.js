@@ -57,9 +57,15 @@ export default {
       if (rect.bottom > vh) {
         this.$refs.float.style.top = `${vh - rect.height}px`;
       }
+      this.setPositions({
+        left: this.$refs.float.style.left || '0px',
+        top: this.$refs.float.style.top || '0px',
+        width: rect.width,
+        height: rect.height,
+      });
       document.onmouseup = null;
       document.onmousemove = null;
     },
-    ...mapMutations(['setDrag']),
+    ...mapMutations('float', ['setDrag', 'setPositions']),
   },
 };

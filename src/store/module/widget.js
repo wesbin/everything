@@ -9,11 +9,24 @@ const widget = {
     },
   },
   mutations: {
-    addMemo(state) {
-      state.widgetList.push('@/components/widget/Memo');
+    setWidget(state, widget) {
+      state.widgetList.push(widget);
     },
   },
-  actions: {},
+  actions: {
+    addWidget({ commit, rootGetters }, type) {
+      const positions = rootGetters['float/getPositions'];
+      const left = parseInt(positions.left.slice(0, -2));
+      const top = parseInt(positions.top.slice(0, -2));
+      commit('setWidget', {
+        type: type,
+        style: {
+          left: `${left + positions.width + 5}px`,
+          top: `${top}px`,
+        },
+      });
+    },
+  },
 };
 
 export default widget;

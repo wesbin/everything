@@ -1,5 +1,5 @@
 <template>
-  <component :is="componentLoader"></component>
+  <component :is="componentLoader" :widgetStyle="widget.style"></component>
 </template>
 
 <script>
@@ -9,12 +9,15 @@ export default {
   name: 'Widget',
   props: {
     widget: {
-      type: String,
+      type: Object,
+      required: true,
     },
   },
   computed: {
     componentLoader() {
-      return defineAsyncComponent(() => import('@/components/widget/Memo'));
+      return defineAsyncComponent(() =>
+        import(`@/components/widget/${this.widget.type}`)
+      );
     },
   },
 };

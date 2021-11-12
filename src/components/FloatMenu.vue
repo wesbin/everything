@@ -26,7 +26,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['getDrag']),
+    ...mapGetters('float', ['getDrag']),
   },
   methods: {
     toggleMenu() {
@@ -47,7 +47,6 @@ export default {
   max-width: 150px;
   left: 13%;
   top: 13%;
-
   &.open {
     border: solid 2px $float-menu;
     border-radius: 2px;

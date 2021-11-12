@@ -1,13 +1,11 @@
 <template>
   <div class="widget-list" v-show="toggle">
-    <div class="widget" @click="popMemo">Memo</div>
+    <div class="widget" @click="addMemo">Memo</div>
   </div>
 </template>
 
 <script>
-import { createNamespacedHelpers, mapGetters } from 'vuex';
-
-const { mapMutations } = createNamespacedHelpers('widget');
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'WidgetList',
@@ -18,15 +16,15 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getDrag']),
+    ...mapGetters('float', ['getDrag']),
   },
   methods: {
-    popMemo() {
+    addMemo() {
       if (!this.getDrag) {
-        this.addMemo();
+        this.addWidget('Memo');
       }
     },
-    ...mapMutations(['addMemo']),
+    ...mapActions('widget', ['addWidget']),
   },
 };
 </script>

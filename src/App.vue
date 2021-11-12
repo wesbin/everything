@@ -2,9 +2,9 @@
   <div id="app">
     <div class="container">
       <Clock></Clock>
-      <FloatMenu></FloatMenu>
-      <WidgetLoader></WidgetLoader>
     </div>
+    <FloatMenu></FloatMenu>
+    <WidgetLoader></WidgetLoader>
   </div>
 </template>
 
@@ -39,8 +39,36 @@ body {
   background-color: $background;
   width: 100vw;
   height: 100vh;
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
+}
+*::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  &-thumb {
+    background-color: $scrollbar;
+    background-clip: content-box;
+    &:hover {
+      background-color: $scrollbar-hover;
+    }
+  }
+  &-track {
+    background-color: transparent;
+  }
+}
+textarea {
+  font-family: inherit;
+  color: inherit;
+  box-sizing: border-box;
+  border: 0;
+  margin: 0;
+  padding: 12px;
+  resize: none;
+  line-height: 1.618;
+  background: $float-menu;
+  &:focus {
+    outline: none;
+  }
 }
 </style>
