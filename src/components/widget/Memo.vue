@@ -1,8 +1,6 @@
 <template>
   <div class="memo" ref="float" :style="widgetStyle">
-    <div class="header" @mousedown="dragMouseDown">
-
-    </div>
+    <div class="header" @mousedown="dragMouseDown"></div>
     <div>
       <textarea class="content"></textarea>
     </div>
@@ -29,18 +27,19 @@ export default {
   display: grid;
   grid-template-rows: 20px auto;
   position: absolute;
-  background: $float-menu;
+  background: $menu;
   width: 200px;
   height: 200px;
   resize: both;
   overflow: hidden;
-  z-index: 10;
+  z-index: 1;
   .header {
     background: $menu-header;
   }
   .content {
     width: 100%;
     height: 100%;
+    background: $menu;
   }
 }
 </style>

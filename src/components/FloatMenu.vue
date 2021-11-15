@@ -36,15 +36,14 @@ export default {
 <style lang="scss" scoped>
 .float-menu {
   position: absolute;
-  z-index: 9;
-  width: 10vw;
-  min-width: 100px;
-  max-width: 150px;
+  z-index: 2147483647;
   left: 13%;
   top: 13%;
+  background: $background;
   &.open {
     border: solid 2px $float-menu;
     border-radius: 2px;
+    width: 125px;
   }
 }
 </style>

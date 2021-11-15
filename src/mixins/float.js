@@ -1,11 +1,10 @@
 import { mapMutations } from 'vuex';
 
-
 /*
-* 필수 설정
-* ref = float
-* @click = dragMouseDown
-* */
+ * 필수 설정
+ * ref = float
+ * @click = dragMouseDown
+ * */
 export default {
   data() {
     return {

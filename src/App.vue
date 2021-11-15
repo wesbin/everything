@@ -66,7 +66,6 @@ textarea {
   padding: 12px;
   resize: none;
   line-height: 1.618;
-  background: $float-menu;
   &:focus {
     outline: none;
   }

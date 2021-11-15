@@ -1,16 +1,27 @@
 const widget = {
   namespaced: true,
   state: {
+    // 보여지고 있는 위젯 리스트
     widgetList: [],
+    // 현재 위젯 중 z-index 최대 값
+    topIndex: 1,
   },
   getters: {
     getWidgetList(state) {
       return state.widgetList;
     },
+    getTopIndex(state) {
+      return state.topIndex;
+    },
   },
   mutations: {
+    // 위젯 추가
     setWidget(state, widget) {
       state.widgetList.push(widget);
+    },
+    // 위젯 z-index 1 증가
+    upIndex(state) {
+      state.topIndex += 1;
     },
   },
   actions: {
@@ -18,6 +29,7 @@ const widget = {
     addWidget({ commit, rootGetters }, type) {
       // 위치 설정
       const positions = rootGetters['float/getPositions'];
+      commit('upIndex');
       commit('setWidget', {
         type: type,
         style: {
