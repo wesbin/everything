@@ -1,6 +1,8 @@
 <template>
   <div class="memo" ref="float" :style="widgetStyle">
-    <div class="header" @mousedown="dragMouseDown"></div>
+    <div class="header" @mousedown="dragMouseDown">
+
+    </div>
     <div>
       <textarea class="content"></textarea>
     </div>
@@ -25,7 +27,7 @@ export default {
 <style lang="scss" scoped>
 .memo {
   display: grid;
-  grid-template-rows: 10px auto;
+  grid-template-rows: 20px auto;
   position: absolute;
   background: $float-menu;
   width: 200px;

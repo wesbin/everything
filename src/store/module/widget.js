@@ -14,15 +14,15 @@ const widget = {
     },
   },
   actions: {
+    // 플로팅 메뉴에서 위젯 클릭하면 해당하는 위젯 화면에 추가
     addWidget({ commit, rootGetters }, type) {
+      // 위치 설정
       const positions = rootGetters['float/getPositions'];
-      const left = parseInt(positions.left.slice(0, -2));
-      const top = parseInt(positions.top.slice(0, -2));
       commit('setWidget', {
         type: type,
         style: {
-          left: `${left + positions.width + 5}px`,
-          top: `${top}px`,
+          left: `calc(${positions.left} + ${positions.width}px + 5px)`,
+          top: positions.top,
         },
       });
     },

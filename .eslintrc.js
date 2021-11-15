@@ -13,6 +13,7 @@ module.exports = {
       {
         bracketSameLine: false,
         singleQuote: true,
+        printWidth: 120,
       },
     ],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

@@ -15,9 +15,7 @@ export default {
   },
   computed: {
     componentLoader() {
-      return defineAsyncComponent(() =>
-        import(`@/components/widget/${this.widget.type}`)
-      );
+      return defineAsyncComponent(() => import(`@/components/widget/${this.widget.type}`));
     },
   },
 };

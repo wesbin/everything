@@ -1,10 +1,5 @@
 <template>
-  <div
-    ref="float"
-    class="float-menu"
-    :class="{ open: toggle }"
-    @mousedown="dragMouseDown"
-  >
+  <div ref="float" class="float-menu" :class="{ open: toggle }" @mousedown="dragMouseDown">
     <ButtonPlusMinus @toggle="toggleMenu" :toggle="toggle"></ButtonPlusMinus>
     <WidgetList :toggle="toggle"></WidgetList>
   </div>
