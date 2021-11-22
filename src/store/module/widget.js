@@ -26,7 +26,7 @@ const widget = {
   },
   actions: {
     // 플로팅 메뉴에서 위젯 클릭하면 해당하는 위젯 화면에 추가
-    addWidget({ commit, rootGetters }, type) {
+    addWidget({ commit, getters, rootGetters }, type) {
       // 위치 설정
       const positions = rootGetters['float/getPositions'];
       commit('upIndex');
@@ -35,6 +35,7 @@ const widget = {
         style: {
           left: `calc(${positions.left} + ${positions.width}px + 5px)`,
           top: positions.top,
+          'z-index': getters.getTopIndex,
         },
       });
     },

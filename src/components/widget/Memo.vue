@@ -1,6 +1,6 @@
 <template>
   <div class="memo" ref="float" :style="widgetStyle">
-    <div class="header" @mousedown="dragMouseDown"></div>
+    <div class="header" @mousedown="$_float_dragMouseDown"></div>
     <div>
       <textarea class="content"></textarea>
     </div>
@@ -33,6 +33,7 @@ export default {
   resize: both;
   overflow: hidden;
   z-index: 1;
+  border: 1px solid $float-menu;
   .header {
     background: $menu-header;
   }
