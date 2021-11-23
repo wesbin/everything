@@ -5,6 +5,9 @@ const widget = {
     widgetList: [],
     // 현재 위젯 중 z-index 최대 값
     topIndex: 1,
+    singleWidget: {
+      'memo/MemoList': false,
+    },
   },
   getters: {
     getWidgetList(state) {
@@ -12,6 +15,14 @@ const widget = {
     },
     getTopIndex(state) {
       return state.topIndex;
+    },
+    checkSingleWidget: (state) => {
+      return (type) => {
+        if (state.singleWidget.hasOwnProperty(type)) {
+          return state.singleWidget[type];
+        }
+        return true;
+      };
     },
   },
   mutations: {

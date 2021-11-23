@@ -36,10 +36,11 @@ export default {
 <style lang="scss" scoped>
 .float-menu {
   position: absolute;
-  z-index: 2147483647;
+  z-index: 2147483647 !important;
   left: 13%;
   top: 13%;
   background: $background;
+
   &.open {
     border: solid 2px $float-menu;
     border-radius: 2px;
