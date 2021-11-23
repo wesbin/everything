@@ -5,6 +5,7 @@ const widget = {
     widgetList: [],
     // 현재 위젯 중 z-index 최대 값
     topIndex: 1,
+    // 단일 위젯 리스트
     singleWidget: {
       'memo/MemoList': false,
     },
@@ -16,13 +17,14 @@ const widget = {
     getTopIndex(state) {
       return state.topIndex;
     },
+    // 해당 위젯이 단일 위젯인지 판단
     checkSingleWidget: (state) => {
       return (type) => {
-        if (state.singleWidget.hasOwnProperty(type)) {
-          return state.singleWidget[type];
-        }
-        return true;
+        return Object.prototype.hasOwnProperty.call(state.singleWidget, type);
       };
+    },
+    getSingleWidget: (state) => {
+      return state.singleWidget;
     },
   },
   mutations: {
@@ -34,12 +36,24 @@ const widget = {
     upIndex(state) {
       state.topIndex += 1;
     },
+    // 단일 위젯 트리거
+    toggleSingleWidget(state, type) {
+      state.singleWidget[type] = !state.singleWidget[type];
+    },
   },
   actions: {
     // 플로팅 메뉴에서 위젯 클릭하면 해당하는 위젯 화면에 추가
     addWidget({ commit, getters, rootGetters }, type) {
       // 위치 설정
       const positions = rootGetters['float/getPositions'];
+      // 단일 위젯 확인
+      if (getters.checkSingleWidget(type)) {
+        if (!getters.getSingleWidget[type]) {
+          commit('toggleSingleWidget', type);
+        } else {
+          return false;
+        }
+      }
       commit('upIndex');
       commit('setWidget', {
         type: type,

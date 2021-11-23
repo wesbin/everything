@@ -34,9 +34,11 @@ export default {
   overflow: hidden;
   z-index: 1;
   border: 1px solid $float-menu;
+
   .header {
     background: $menu-header;
   }
+
   .content {
     width: 100%;
     height: 100%;
