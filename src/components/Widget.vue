@@ -1,5 +1,5 @@
 <template>
-  <component :is="componentLoader" :widgetStyle="widget.style"></component>
+  <component :is="componentLoader" :widgetStyle="widget.style" :widgetId="widget.id"></component>
 </template>
 
 <script>
@@ -15,7 +15,10 @@ export default {
   },
   computed: {
     componentLoader() {
-      return defineAsyncComponent(() => import(`@/components/widget/${this.widget.type}`));
+      if (this.widget.visible) {
+        return defineAsyncComponent(() => import(`@/components/widget/${this.widget.type}`));
+      }
+      return false;
     },
   },
 };

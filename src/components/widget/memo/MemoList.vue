@@ -5,7 +5,7 @@
         <img class="plus-svg" src="@/assets/icon/plus-solid.svg" alt="+" @click="addMemo" />
       </div>
       <div class="field end">
-        <img class="delete-svg" src="@/assets/icon/times-solid.svg" alt="X" />
+        <img class="delete-svg" src="@/assets/icon/times-solid.svg" alt="X" @click="closeMemoList" />
       </div>
     </div>
     <div class="flex-fluid">TEST</div>
@@ -24,6 +24,10 @@ export default {
       type: Object,
       required: true,
     },
+    widgetId: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     ...mapGetters('float', ['getDrag']),
@@ -31,10 +35,18 @@ export default {
   methods: {
     addMemo() {
       if (!this.getDrag) {
-        this.addWidget('memo/Memo');
+        this.addWidget({
+          type: 'memo/Memo',
+          isSingle: false,
+        });
       }
     },
-    ...mapActions('widget', ['addWidget']),
+    closeMemoList() {
+      if (!this.getDrag) {
+        this.closeWidget({ id: this.widgetId, type: 'memo/MemoList' });
+      }
+    },
+    ...mapActions('widget', ['addWidget', 'closeWidget']),
   },
 };
 </script>
@@ -43,7 +55,7 @@ export default {
 .memo-list {
   display: grid;
   grid-template-rows: 20px auto;
-  padding: 4px;
+  padding: 8px;
   gap: 10px;
   position: absolute;
   width: 320px;
@@ -80,7 +92,6 @@ export default {
   }
 
   .flex-fluid {
-
   }
 }
 </style>

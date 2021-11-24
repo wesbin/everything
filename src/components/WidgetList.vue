@@ -21,7 +21,10 @@ export default {
   methods: {
     showMemoList() {
       if (!this.getDrag) {
-        this.addWidget('memo/MemoList');
+        this.addWidget({
+          type: 'memo/MemoList',
+          isSingle: true,
+        });
       }
     },
     ...mapActions('widget', ['addWidget']),

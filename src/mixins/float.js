@@ -23,7 +23,7 @@ export default {
   mounted() {
     this.$refs.float.addEventListener('mousedown', () => {
       this.$_float_focusOn();
-    })
+    });
   },
   methods: {
     $_float_dragMouseDown: function (event) {

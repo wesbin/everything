@@ -1,6 +1,8 @@
 <template>
   <div class="memo" ref="float" :style="widgetStyle">
-    <div class="header" @mousedown="$_float_dragMouseDown"></div>
+    <div class="header" @mousedown="$_float_dragMouseDown">
+      <img class="delete-svg" src="@/assets/icon/times-solid.svg" alt="X" @click="closeMemo" />
+    </div>
     <div>
       <textarea class="content"></textarea>
     </div>
@@ -9,6 +11,7 @@
 
 <script>
 import float from '@/mixins/float';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Memo',
@@ -18,6 +21,21 @@ export default {
       type: Object,
       required: true,
     },
+    widgetId: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    ...mapGetters('float', ['getDrag']),
+  },
+  methods: {
+    closeMemo() {
+      if (!this.getDrag) {
+        this.closeWidget({ id: this.widgetId, type: 'memo/Memo' });
+      }
+    },
+    ...mapActions('widget', ['closeWidget']),
   },
 };
 </script>
@@ -44,6 +62,13 @@ export default {
     width: 100%;
     height: 100%;
     background: $menu;
+  }
+
+  .delete-svg {
+    margin-right: 8px;
+    float: right;
+    cursor: pointer;
+    height: 20px;
   }
 }
 </style>
