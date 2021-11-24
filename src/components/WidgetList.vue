@@ -1,6 +1,6 @@
 <template>
   <div class="widget-list" v-show="toggle">
-    <div class="widget" @click="addMemo">Memo</div>
+    <div class="widget" @click="showMemoList">Memo</div>
   </div>
 </template>
 
@@ -19,9 +19,8 @@ export default {
     ...mapGetters('float', ['getDrag']),
   },
   methods: {
-    addMemo() {
+    showMemoList() {
       if (!this.getDrag) {
-        // this.addWidget('memo/Memo');
         this.addWidget('memo/MemoList');
       }
     },

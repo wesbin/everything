@@ -31,7 +31,7 @@ export default {
 }
 body {
   font-family: AppleSDGothicNeoL, sans-serif;
-  color: $font;
+  color: $white-font;
   margin: 0;
   overflow: hidden;
 }

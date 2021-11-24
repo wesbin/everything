@@ -24,6 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 .memo {
+  color: $dark-font;
   display: grid;
   grid-template-rows: 20px auto;
   position: absolute;

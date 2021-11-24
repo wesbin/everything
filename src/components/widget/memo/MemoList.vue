@@ -1,19 +1,23 @@
 <template>
   <div class="memo-list" ref="float" :style="widgetStyle">
-    <div class="fix">
-      <SVGLoader title="times-solid"></SVGLoader>
+    <div class="flex-fix" @mousedown="$_float_dragMouseDown">
+      <div class="field start">
+        <img class="plus-svg" src="@/assets/icon/plus-solid.svg" alt="+" @click="addMemo" />
+      </div>
+      <div class="field end">
+        <img class="delete-svg" src="@/assets/icon/times-solid.svg" alt="X" />
+      </div>
     </div>
-    <div class="fluid">TEST</div>
+    <div class="flex-fluid">TEST</div>
   </div>
 </template>
 
 <script>
 import float from '@/mixins/float';
-import SVGLoader from '@/components/SVGLoader';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'MemoList',
-  components: { SVGLoader },
   mixins: [float],
   props: {
     widgetStyle: {
@@ -21,13 +25,24 @@ export default {
       required: true,
     },
   },
+  computed: {
+    ...mapGetters('float', ['getDrag']),
+  },
+  methods: {
+    addMemo() {
+      if (!this.getDrag) {
+        this.addWidget('memo/Memo');
+      }
+    },
+    ...mapActions('widget', ['addWidget']),
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .memo-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 20px auto;
   padding: 4px;
   gap: 10px;
   position: absolute;
@@ -36,14 +51,36 @@ export default {
   z-index: 1;
   background: $menu-list;
 
-  .fix {
-    background: #333333;
+  .flex-fix {
+    display: flex;
     flex: 0 0 0;
+
+    .delete-svg {
+      cursor: pointer;
+      height: 20px;
+    }
+
+    .plus-svg {
+      cursor: pointer;
+      height: 20px;
+    }
   }
 
-  .fluid {
-    background: #333333;
-    flex: 1 1 0;
+  .field {
+    display: flex;
+    flex: 1;
+
+    &.end {
+      justify-content: flex-end;
+    }
+
+    &.start {
+      justify-content: flex-start;
+    }
+  }
+
+  .flex-fluid {
+
   }
 }
 </style>

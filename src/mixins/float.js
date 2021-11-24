@@ -20,11 +20,16 @@ export default {
   computed: {
     ...mapGetters('widget', ['getTopIndex']),
   },
+  mounted() {
+    this.$refs.float.addEventListener('mousedown', () => {
+      this.$_float_focusOn();
+    })
+  },
   methods: {
     $_float_dragMouseDown: function (event) {
       event.preventDefault();
       this.setDrag(false);
-      this.$_float_focusOn();
+      // this.$_float_focusOn();
       // get the mouse cursor position at startup:
       this.positions.clientX = event.clientX;
       this.positions.clientY = event.clientY;

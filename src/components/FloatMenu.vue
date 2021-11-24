@@ -40,6 +40,7 @@ export default {
   left: 13%;
   top: 13%;
   background: $background;
+  //background: $float-menu-background;
 
   &.open {
     border: solid 2px $float-menu;
