@@ -1,23 +1,90 @@
 <template>
   <div class="memo-list" ref="float" :style="widgetStyle">
-    <div class="flex-fix" @mousedown="$_float_dragMouseDown">
+    <div class="field-wrap" @mousedown="$_float_dragMouseDown">
       <div class="field start">
-        <img class="plus-svg" src="@/assets/icon/plus-solid.svg" alt="+" @click="addMemo" />
+        <SVGLoader svg-title="plus" @click="addMemo" class="plus-svg"></SVGLoader>
       </div>
       <div class="field end">
-        <img class="delete-svg" src="@/assets/icon/times-solid.svg" alt="X" @click="closeMemoList" />
+        <SVGLoader svg-title="delete" @click="closeMemoList" class="delete-svg"></SVGLoader>
       </div>
     </div>
-    <div class="flex-fluid">TEST</div>
+    <div class="body">
+      <div class="memo">
+        <div class="header"></div>
+        <div>
+          <textarea class="content">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="memo">
+        <div class="header"></div>
+        <div>
+          <textarea class="content">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="memo">
+        <div class="header"></div>
+        <div>
+          <textarea class="content">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="memo">
+        <div class="header"></div>
+        <div>
+          <textarea class="content">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="memo">
+        <div class="header"></div>
+        <div>
+          <textarea class="content">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="memo">
+        <div class="header"></div>
+        <div>
+          <textarea class="content">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="memo">
+        <div class="header"></div>
+        <div>
+          <textarea class="content">
+          </textarea>
+        </div>
+      </div>
+
+      <div class="memo">
+        <div class="header"></div>
+        <div>
+          <textarea class="content">
+          </textarea>
+        </div>
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script>
 import float from '@/mixins/float';
 import { mapActions, mapGetters } from 'vuex';
+import SVGLoader from '@/components/utils/SVGLoader';
 
 export default {
   name: 'MemoList',
+  components: { SVGLoader },
   mixins: [float],
   props: {
     widgetStyle: {
@@ -63,35 +130,57 @@ export default {
   z-index: 1;
   background: $menu-list;
 
-  .flex-fix {
+  .field-wrap {
     display: flex;
-    flex: 0 0 0;
 
-    .delete-svg {
-      cursor: pointer;
-      height: 20px;
-    }
+    .field {
+      display: flex;
+      flex: 1;
 
-    .plus-svg {
-      cursor: pointer;
-      height: 20px;
+      &.end {
+        justify-content: flex-end;
+      }
+
+      &.start {
+        justify-content: flex-start;
+      }
+
+      .delete-svg {
+        cursor: pointer;
+        height: 20px;
+      }
+
+      .plus-svg {
+        cursor: pointer;
+        height: 20px;
+      }
     }
   }
 
-  .field {
-    display: flex;
-    flex: 1;
+  .body {
+    overflow: scroll;
+    padding: 4px;
 
-    &.end {
-      justify-content: flex-end;
+    .memo {
+      display: grid;
+      grid-template-rows: 10px auto;
+      background: $menu;
+      width: 100%;
+      min-height: 100px;
+      max-height: 300px;
+      gap: 20px;
+      margin-bottom: 10px;
+
+      .header {
+        background: $menu-header;
+      }
+
+      .content {
+        width: 100%;
+        height: 100%;
+        background: $menu;
+      }
     }
-
-    &.start {
-      justify-content: flex-start;
-    }
-  }
-
-  .flex-fluid {
   }
 }
 </style>

@@ -10,9 +10,9 @@
 
 <script>
 import Clock from '@/components/Clock';
-import FloatMenu from '@/components/FloatMenu';
+import FloatMenu from '@/components/widget/FloatMenu';
 
-import WidgetLoader from '@/components/WidgetLoader';
+import WidgetLoader from '@/components/widget/WidgetLoader';
 
 export default {
   name: 'App',

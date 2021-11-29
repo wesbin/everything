@@ -1,7 +1,7 @@
 <template>
   <div class="memo" ref="float" :style="widgetStyle">
     <div class="header" @mousedown="$_float_dragMouseDown">
-      <img class="delete-svg" src="@/assets/icon/times-solid.svg" alt="X" @click="closeMemo" />
+      <SVGLoader svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
     </div>
     <div>
       <textarea class="content"></textarea>
@@ -12,9 +12,11 @@
 <script>
 import float from '@/mixins/float';
 import { mapActions, mapGetters } from 'vuex';
+import SVGLoader from '@/components/utils/SVGLoader';
 
 export default {
   name: 'Memo',
+  components: { SVGLoader },
   mixins: [float],
   props: {
     widgetStyle: {

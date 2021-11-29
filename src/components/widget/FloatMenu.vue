@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ButtonPlusMinus from '@/components/ButtonPlusMinus';
-import WidgetList from '@/components/WidgetList';
+import ButtonPlusMinus from '@/components/widget/ButtonPlusMinus';
+import WidgetList from '@/components/widget/WidgetList';
 import float from '@/mixins/float';
 import { mapGetters } from 'vuex';
 

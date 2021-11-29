@@ -7,7 +7,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import Widget from '@/components/Widget';
+import Widget from '@/components/widget/Widget';
 
 export default {
   name: 'WidgetLoader',
