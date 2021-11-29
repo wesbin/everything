@@ -49,6 +49,11 @@ body {
   &-thumb {
     background-color: $scrollbar;
     background-clip: content-box;
+    border-radius: 4px;
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0;
     &:hover {
       background-color: $scrollbar-hover;
     }

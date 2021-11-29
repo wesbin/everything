@@ -1,5 +1,5 @@
 <template>
-  <div class="memo-list" ref="float" :style="widgetStyle">
+  <div class="memo-list" ref="float" :style="widget.style">
     <div class="field-wrap" @mousedown="$_float_dragMouseDown">
       <div class="field start">
         <SVGLoader svg-title="plus" @click="addMemo" class="plus-svg"></SVGLoader>
@@ -8,71 +8,13 @@
         <SVGLoader svg-title="delete" @click="closeMemoList" class="delete-svg"></SVGLoader>
       </div>
     </div>
-    <div class="body">
-      <div class="memo">
+    <div class="memos">
+      <div class="memo" v-for="(widget, index) in this.filterTypeWidgetList('memo/Memo')" :key="index">
         <div class="header"></div>
         <div>
-          <textarea class="content">
-          </textarea>
+          <textarea disabled class="content"> </textarea>
         </div>
       </div>
-
-      <div class="memo">
-        <div class="header"></div>
-        <div>
-          <textarea class="content">
-          </textarea>
-        </div>
-      </div>
-
-      <div class="memo">
-        <div class="header"></div>
-        <div>
-          <textarea class="content">
-          </textarea>
-        </div>
-      </div>
-
-      <div class="memo">
-        <div class="header"></div>
-        <div>
-          <textarea class="content">
-          </textarea>
-        </div>
-      </div>
-
-      <div class="memo">
-        <div class="header"></div>
-        <div>
-          <textarea class="content">
-          </textarea>
-        </div>
-      </div>
-
-      <div class="memo">
-        <div class="header"></div>
-        <div>
-          <textarea class="content">
-          </textarea>
-        </div>
-      </div>
-
-      <div class="memo">
-        <div class="header"></div>
-        <div>
-          <textarea class="content">
-          </textarea>
-        </div>
-      </div>
-
-      <div class="memo">
-        <div class="header"></div>
-        <div>
-          <textarea class="content">
-          </textarea>
-        </div>
-      </div>
-
     </div>
   </div>
 </template>
@@ -87,17 +29,14 @@ export default {
   components: { SVGLoader },
   mixins: [float],
   props: {
-    widgetStyle: {
+    widget: {
       type: Object,
-      required: true,
-    },
-    widgetId: {
-      type: String,
       required: true,
     },
   },
   computed: {
     ...mapGetters('float', ['getDrag']),
+    ...mapGetters('widget', ['filterTypeWidgetList']),
   },
   methods: {
     addMemo() {
@@ -157,18 +96,16 @@ export default {
     }
   }
 
-  .body {
+  .memos {
     overflow: scroll;
-    padding: 4px;
+    padding-right: 4px;
 
     .memo {
       display: grid;
       grid-template-rows: 10px auto;
-      background: $menu;
       width: 100%;
       min-height: 100px;
       max-height: 300px;
-      gap: 20px;
       margin-bottom: 10px;
 
       .header {
@@ -179,6 +116,16 @@ export default {
         width: 100%;
         height: 100%;
         background: $menu;
+      }
+
+      &:hover {
+        .header {
+          background: $memo-hover;
+        }
+
+        .content {
+          background: $memo-hover;
+        }
       }
     }
   }

@@ -31,6 +31,7 @@ export default {
 <style scoped>
 .clock {
   cursor: default;
+  user-select: none;
 }
 .time {
   font-size: 12em;

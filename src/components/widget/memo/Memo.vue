@@ -1,11 +1,9 @@
 <template>
-  <div class="memo" ref="float" :style="widgetStyle">
+  <div class="memo" ref="float" :style="widget.style">
     <div class="header" @mousedown="$_float_dragMouseDown">
       <SVGLoader svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
     </div>
-    <div>
-      <textarea class="content"></textarea>
-    </div>
+    <MemoTextarea v-model="memoContents"></MemoTextarea>
   </div>
 </template>
 
@@ -13,18 +11,20 @@
 import float from '@/mixins/float';
 import { mapActions, mapGetters } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
+import MemoTextarea from '@/components/widget/memo/MemoTextarea';
 
 export default {
   name: 'Memo',
-  components: { SVGLoader },
+  components: { MemoTextarea, SVGLoader },
   mixins: [float],
+  data() {
+    return {
+      memoContents: '',
+    };
+  },
   props: {
-    widgetStyle: {
+    widget: {
       type: Object,
-      required: true,
-    },
-    widgetId: {
-      type: String,
       required: true,
     },
   },
@@ -34,7 +34,7 @@ export default {
   methods: {
     closeMemo() {
       if (!this.getDrag) {
-        this.closeWidget({ id: this.widgetId, type: 'memo/Memo' });
+        this.closeWidget({ id: this.widget.id, type: 'memo/Memo' });
       }
     },
     ...mapActions('widget', ['closeWidget']),
@@ -48,7 +48,6 @@ export default {
   display: grid;
   grid-template-rows: 20px auto;
   position: absolute;
-  background: $menu;
   width: 200px;
   height: 200px;
   resize: both;
@@ -58,12 +57,6 @@ export default {
 
   .header {
     background: $menu-header;
-  }
-
-  .content {
-    width: 100%;
-    height: 100%;
-    background: $menu;
   }
 
   .delete-svg {

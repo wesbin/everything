@@ -1,5 +1,5 @@
 <template>
-  <component :is="componentLoader" :widgetStyle="widget.style" :widgetId="widget.id"></component>
+  <component :is="componentLoader" :widget="widget"></component>
 </template>
 
 <script>

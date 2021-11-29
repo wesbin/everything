@@ -1,5 +1,5 @@
 <template>
-  <div v-for="(widget, index) in getWidgetList" :key="index">
+  <div v-for="(widget, index) in this.getWidgetList" :key="index">
     <Widget :widget="widget"></Widget>
   </div>
 </template>
