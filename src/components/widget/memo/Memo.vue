@@ -3,13 +3,14 @@
     <div class="header" @mousedown="$_float_dragMouseDown">
       <SVGLoader svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
     </div>
-    <MemoTextarea v-model="memoContents"></MemoTextarea>
+    <MemoTextarea :widget="widget"></MemoTextarea>
+    <!--    <MemoTextarea v-model="memoContents" :widget="widget"></MemoTextarea>-->
   </div>
 </template>
 
 <script>
 import float from '@/mixins/float';
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
 
@@ -34,10 +35,10 @@ export default {
   methods: {
     closeMemo() {
       if (!this.getDrag) {
-        this.closeWidget({ id: this.widget.id, type: 'memo/Memo' });
+        this.hideWidget(this.widget);
       }
     },
-    ...mapActions('widget', ['closeWidget']),
+    ...mapMutations('widget', ['hideWidget']),
   },
 };
 </script>

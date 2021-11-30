@@ -9,10 +9,15 @@
       </div>
     </div>
     <div class="memos">
-      <div class="memo" v-for="(widget, index) in this.filterTypeWidgetList('memo/Memo')" :key="index">
+      <div
+        class="memo"
+        @click="clickMemo(memoWidget)"
+        v-for="(memoWidget, index) in this.filterTypeWidgetList('memo/Memo')"
+        :key="index"
+      >
         <div class="header"></div>
         <div>
-          <textarea disabled class="content"> </textarea>
+          <MemoTextarea disabled :widget="memoWidget"></MemoTextarea>
         </div>
       </div>
     </div>
@@ -21,12 +26,13 @@
 
 <script>
 import float from '@/mixins/float';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
+import MemoTextarea from '@/components/widget/memo/MemoTextarea';
 
 export default {
   name: 'MemoList',
-  components: { SVGLoader },
+  components: { MemoTextarea, SVGLoader },
   mixins: [float],
   props: {
     widget: {
@@ -47,12 +53,16 @@ export default {
         });
       }
     },
+    clickMemo(memoWidget) {
+      this.showWidget(memoWidget);
+    },
     closeMemoList() {
       if (!this.getDrag) {
-        this.closeWidget({ id: this.widgetId, type: 'memo/MemoList' });
+        this.hideWidget(this.widget);
       }
     },
-    ...mapActions('widget', ['addWidget', 'closeWidget']),
+    ...mapActions('widget', ['addWidget']),
+    ...mapMutations('widget', ['showWidget']),
   },
 };
 </script>
@@ -112,18 +122,8 @@ export default {
         background: $menu-header;
       }
 
-      .content {
-        width: 100%;
-        height: 100%;
-        background: $menu;
-      }
-
       &:hover {
         .header {
-          background: $memo-hover;
-        }
-
-        .content {
           background: $memo-hover;
         }
       }

@@ -4,31 +4,26 @@ const widget = {
   namespaced: true,
   state: {
     // 보여지고 있는 위젯 리스트
-    widgetList: [
-      /*
+    /*
 
-      Memo
-      {
-        id: uuidv4(),
-        type: 'memo/Memo',
-        visible: Boolean,
-        style: {
-          left, top, 'z-index'
-        },
-        contents: ''
-      }
+      ### 공통
+      id: String(uuidv4())
+      type: String('memo/MemoList')
+      visible: Boolean
+      style: Object(
+        {
+          left,
+          top,
+          'z-index',
+          ...
+        }
+      )
 
-      MemoList
-      {
-        id: uuidv4(),
-        type: 'memo/MemoList',
-        visible: Boolean,
-        style: {
-          left, top, 'z-index'
-        },
-      }
-      */
-    ],
+      ### Memo
+      contents: String
+
+    */
+    widgetList: [],
     // 현재 위젯 중 z-index 최대 값
     topIndex: 1,
   },
@@ -41,9 +36,6 @@ const widget = {
     },
     findTypeWidgetList: (state) => (type) => {
       return state.widgetList.find((widget) => widget.type === type);
-    },
-    findIdTypeWidgetList: (state) => (id, type) => {
-      return state.widgetList.find((widget) => widget.id === id && widget.type === type);
     },
     filterTypeWidgetList: (state) => (type) => {
       return state.widgetList.filter((widget) => widget.type === type);
@@ -65,6 +57,12 @@ const widget = {
     // 위젯 z-index 1 증가
     upIndex(state) {
       state.topIndex += 1;
+    },
+    // 위젯 내용 업데이트
+    updateWidget(state, { widget, ...args }) {
+      Object.entries(args).forEach(([key, value]) => {
+        widget[key] = value;
+      });
     },
   },
   actions: {
@@ -93,13 +91,6 @@ const widget = {
         },
       });
     },
-    // 위젯 닫기
-    closeWidget({ commit, getters }, { id, type }) {
-      commit('hideWidget', getters.findIdTypeWidgetList(id, type));
-    },
-    updateWidget({ commit, getters }, { widget }) {
-      widget.contents = 'test'
-    }
   },
 };
 

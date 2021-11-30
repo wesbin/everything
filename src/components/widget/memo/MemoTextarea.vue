@@ -1,19 +1,28 @@
 <template>
-  <textarea class="memo-textarea" :value="modelValue" @input="updateModelValue"></textarea>
+  <textarea class="memo-textarea" :value="widget.contents" @input="updateModelValue"></textarea>
 </template>
 <script>
-import {mapActions} from 'vuex';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'MemoTextarea',
-  props: ['modelValue'],
+  props: {
+    modelValue: {
+      type: String,
+    },
+    widget: {
+      type: Object,
+      required: true,
+    },
+  },
   methods: {
     updateModelValue(event) {
-      const inputValue = event.target.value;
-      this.$emit('update:modelValue', inputValue);
-      this.updateWidget()
+      this.updateWidget({
+        widget: this.widget,
+        contents: event.target.value,
+      });
     },
-    ...mapActions('widget', ['addWidget', 'updateWidget']),
+    ...mapMutations('widget', ['updateWidget']),
   },
 };
 </script>
