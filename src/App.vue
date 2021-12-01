@@ -3,14 +3,12 @@
     <div class="container">
       <Clock></Clock>
     </div>
-    <FloatMenu></FloatMenu>
     <WidgetLoader></WidgetLoader>
   </div>
 </template>
 
 <script>
 import Clock from '@/components/Clock';
-import FloatMenu from '@/components/widget/FloatMenu';
 
 import WidgetLoader from '@/components/widget/WidgetLoader';
 
@@ -18,7 +16,6 @@ export default {
   name: 'App',
   components: {
     WidgetLoader,
-    FloatMenu,
     Clock,
   },
 };

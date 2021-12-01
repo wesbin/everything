@@ -52,7 +52,7 @@ export default {
     },
     // 위젯 요소 드랍
     $_float_closeDragElement() {
-      // this.$_float_rePositioning();
+      this.$_float_rePositioning();
       document.onmouseup = null;
       document.onmousemove = null;
     },
@@ -80,25 +80,35 @@ export default {
       if (rect.bottom > vh) {
         this.$refs.float.style.top = `${vh - rect.height}px`;
       }
-      this.setPositions({
-        left: this.$refs.float.style.left || '13%',
-        top: this.$refs.float.style.top || '13%',
-        width: rect.width,
-        height: rect.height,
-      });
+      this.$_float_savePosition(
+        this.$refs.float.style.left || '13%',
+        this.$refs.float.style.top || '13%',
+        rect.width,
+        rect.height
+      );
     },
     // float 위젯 포커스 변경
     $_float_focusOn() {
       this.upIndex();
-      this.$refs.float.style['z-index'] = this.getTopIndex;
+      this.updateWidget({
+        widget: this.widget,
+        style: {
+          'z-index': this.getTopIndex,
+        },
+      });
     },
-    $_float_recordPosition() {
-      // this.widget.style.left = '';
-      // this.widget.style.top = '';
-      // this.widget.style.width = '';
-      // this.widget.style.height = '';
+    // 현재 위젯 위치 저장
+    $_float_savePosition(left, top, width, height) {
+      this.updateWidget({
+        widget: this.widget,
+        style: {
+          left: left,
+          top: top,
+          width: width,
+          height: height,
+        },
+      });
     },
-    ...mapMutations('float', ['setDrag', 'setPositions']),
-    ...mapMutations('widget', ['upIndex']),
+    ...mapMutations('widget', ['setDrag', 'upIndex', 'updateWidget']),
   },
 };

@@ -41,7 +41,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('float', ['getDrag']),
+    ...mapGetters('widget', ['getDrag']),
     ...mapGetters('widget', ['filterTypeWidgetList']),
   },
   methods: {
@@ -50,6 +50,7 @@ export default {
         this.addWidget({
           type: 'memo/Memo',
           isSingle: false,
+          widget: this.widget,
         });
       }
     },
@@ -62,7 +63,7 @@ export default {
       }
     },
     ...mapActions('widget', ['addWidget']),
-    ...mapMutations('widget', ['showWidget']),
+    ...mapMutations('widget', ['showWidget', 'hideWidget']),
   },
 };
 </script>

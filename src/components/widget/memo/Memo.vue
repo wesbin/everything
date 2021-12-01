@@ -29,7 +29,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('float', ['getDrag']),
+    ...mapGetters('widget', ['getDrag']),
   },
   methods: {
     closeMemo() {

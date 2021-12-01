@@ -1,7 +1,7 @@
 <template>
   <div ref="float" class="float-menu" :class="{ open: toggle }" @mousedown="$_float_dragMouseDown">
     <ButtonPlusMinus @toggle="toggleMenu" :toggle="toggle"></ButtonPlusMinus>
-    <WidgetList :toggle="toggle"></WidgetList>
+    <WidgetList :toggle="toggle" :widget="widget"></WidgetList>
   </div>
 </template>
 
@@ -15,13 +15,19 @@ export default {
   name: 'FloatMenu',
   components: { WidgetList, ButtonPlusMinus },
   mixins: [widgetFloat],
+  props: {
+    widget: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       toggle: false,
     };
   },
   computed: {
-    ...mapGetters('float', ['getDrag']),
+    ...mapGetters('widget', ['getDrag']),
   },
   methods: {
     toggleMenu() {

@@ -24,9 +24,17 @@ const widget = {
       contents: String
 
     */
-    widgetList: [],
+    widgetList: [
+      {
+        type: 'FloatMenu',
+        visible: true,
+        style: {},
+      },
+    ],
     // 현재 위젯 중 z-index 최대 값
     topIndex: 1,
+    // drag 여부
+    drag: false,
   },
   getters: {
     getWidgetList(state) {
@@ -40,6 +48,9 @@ const widget = {
     },
     filterTypeWidgetList: (state) => (type) => {
       return state.widgetList.filter((widget) => widget.type === type);
+    },
+    getDrag(state) {
+      return state.drag;
     },
   },
   mutations: {
@@ -61,16 +72,25 @@ const widget = {
     },
     // 위젯 내용 업데이트
     updateWidget(state, { widget, ...args }) {
-      Object.entries(args).forEach(([key, value]) => {
-        widget[key] = value;
-      });
+      function merge(target, source) {
+        Object.entries(source).forEach(([key, value]) => {
+          if (value instanceof Object) {
+            merge(target[key], value);
+          } else {
+            target[key] = value;
+          }
+        });
+      }
+      merge(widget, args);
+    },
+    setDrag(state, bool) {
+      state.drag = bool;
     },
   },
   actions: {
     // 플로팅 메뉴에서 위젯 클릭하면 해당하는 위젯 화면에 추가
-    addWidget({ commit, getters, rootGetters }, { type, isSingle }) {
+    addWidget({ commit, getters }, { type, isSingle, widget }) {
       // 위치 설정
-      const positions = rootGetters['float/getPositions'];
       commit('upIndex');
       // 단일 위젯 확인
       if (isSingle) {
@@ -86,8 +106,8 @@ const widget = {
         type: type,
         visible: true,
         style: {
-          left: `calc(${positions.left} + ${positions.width}px + 5px)`,
-          top: positions.top,
+          left: `calc(${widget.style.left} + ${widget.style.width}px + 5px)`,
+          top: widget.style.top,
           'z-index': getters.getTopIndex,
         },
       });

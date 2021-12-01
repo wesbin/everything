@@ -14,9 +14,13 @@ export default {
       type: Boolean,
       required: true,
     },
+    widget: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
-    ...mapGetters('float', ['getDrag']),
+    ...mapGetters('widget', ['getDrag']),
   },
   methods: {
     showMemoList() {
@@ -24,6 +28,7 @@ export default {
         this.addWidget({
           type: 'memo/MemoList',
           isSingle: true,
+          widget: this.widget,
         });
       }
     },
