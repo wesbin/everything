@@ -4,12 +4,11 @@
       <SVGLoader svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
     </div>
     <MemoTextarea :widget="widget"></MemoTextarea>
-    <!--    <MemoTextarea v-model="memoContents" :widget="widget"></MemoTextarea>-->
   </div>
 </template>
 
 <script>
-import float from '@/mixins/float';
+import widgetFloat from '@/mixins/widgetFloat';
 import { mapGetters, mapMutations } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
@@ -17,7 +16,7 @@ import MemoTextarea from '@/components/widget/memo/MemoTextarea';
 export default {
   name: 'Memo',
   components: { MemoTextarea, SVGLoader },
-  mixins: [float],
+  mixins: [widgetFloat],
   data() {
     return {
       memoContents: '',

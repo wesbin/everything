@@ -8,13 +8,13 @@
 <script>
 import ButtonPlusMinus from '@/components/widget/ButtonPlusMinus';
 import WidgetList from '@/components/widget/WidgetList';
-import float from '@/mixins/float';
+import widgetFloat from '@/mixins/widgetFloat';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'FloatMenu',
   components: { WidgetList, ButtonPlusMinus },
-  mixins: [float],
+  mixins: [widgetFloat],
   data() {
     return {
       toggle: false,

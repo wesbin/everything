@@ -4,6 +4,7 @@ import { mapMutations, mapGetters } from 'vuex';
  * 필수 설정
  * ref = float
  * @click = dragMouseDown
+ * props = ['widget']
  * */
 export default {
   data() {
@@ -26,6 +27,7 @@ export default {
     });
   },
   methods: {
+    // 위젯 요소 드래그 시작
     $_float_dragMouseDown: function (event) {
       event.preventDefault();
       this.setDrag(false);
@@ -36,6 +38,7 @@ export default {
       document.onmousemove = this.$_float_elementDrag;
       document.onmouseup = this.$_float_closeDragElement;
     },
+    // 위젯 요소 드래그
     $_float_elementDrag: function (event) {
       event.preventDefault();
       this.setDrag(true);
@@ -47,13 +50,14 @@ export default {
       this.$refs.float.style.top = this.$refs.float.offsetTop - this.positions.movementY + 'px';
       this.$refs.float.style.left = this.$refs.float.offsetLeft - this.positions.movementX + 'px';
     },
+    // 위젯 요소 드랍
     $_float_closeDragElement() {
-      this.$_float_validatePosition();
+      // this.$_float_rePositioning();
       document.onmouseup = null;
       document.onmousemove = null;
     },
     // 드래그 앤 드랍 이후 해당 플로팅 객체가 화면에서 벗어나지 않았는지 검증
-    $_float_validatePosition() {
+    $_float_rePositioning() {
       // 플로팅 객체의 너비, 높이 등
       const rect = this.$refs.float.getBoundingClientRect();
       // 화면 너비
@@ -87,6 +91,12 @@ export default {
     $_float_focusOn() {
       this.upIndex();
       this.$refs.float.style['z-index'] = this.getTopIndex;
+    },
+    $_float_recordPosition() {
+      // this.widget.style.left = '';
+      // this.widget.style.top = '';
+      // this.widget.style.width = '';
+      // this.widget.style.height = '';
     },
     ...mapMutations('float', ['setDrag', 'setPositions']),
     ...mapMutations('widget', ['upIndex']),

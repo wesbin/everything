@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import float from '@/mixins/float';
+import widgetFloat from '@/mixins/widgetFloat';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
@@ -33,7 +33,7 @@ import MemoTextarea from '@/components/widget/memo/MemoTextarea';
 export default {
   name: 'MemoList',
   components: { MemoTextarea, SVGLoader },
-  mixins: [float],
+  mixins: [widgetFloat],
   props: {
     widget: {
       type: Object,

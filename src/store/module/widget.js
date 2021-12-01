@@ -6,16 +6,17 @@ const widget = {
     // 보여지고 있는 위젯 리스트
     /*
 
-      ### 공통
-      id: String(uuidv4())
+      ### 위젯 공통
+      fixme id: String(uuidv4())
       type: String('memo/MemoList')
       visible: Boolean
       style: Object(
         {
           left,
           top,
+          width,
+          height,
           'z-index',
-          ...
         }
       )
 
