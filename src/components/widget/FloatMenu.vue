@@ -1,5 +1,5 @@
 <template>
-  <div ref="float" class="float-menu" :class="{ open: toggle }" @mousedown="$_float_dragMouseDown">
+  <div class="float-menu" :class="{ open: toggle }" @mousedown="floatMousedown">
     <ButtonPlusMinus @toggle="toggleMenu" :toggle="toggle"></ButtonPlusMinus>
     <WidgetList :toggle="toggle" :widget="widget"></WidgetList>
   </div>
@@ -8,13 +8,11 @@
 <script>
 import ButtonPlusMinus from '@/components/widget/ButtonPlusMinus';
 import WidgetList from '@/components/widget/WidgetList';
-import widgetFloat from '@/mixins/widgetFloat';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'FloatMenu',
   components: { WidgetList, ButtonPlusMinus },
-  mixins: [widgetFloat],
   props: {
     widget: {
       type: Object,
@@ -35,16 +33,16 @@ export default {
         this.toggle = !this.toggle;
       }
     },
+    floatMousedown(e) {
+      this.$emit('floatMousedown', e);
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .float-menu {
-  position: absolute;
   z-index: 2147483647 !important;
-  left: 13%;
-  top: 13%;
   background: $background;
   //background: $float-menu-background;
 

@@ -1,6 +1,6 @@
 <template>
-  <div class="memo" ref="float" :style="widget.style">
-    <div class="header" @mousedown="$_float_dragMouseDown">
+  <div class="memo">
+    <div class="header" @mousedown="floatMousedown">
       <SVGLoader svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
     </div>
     <MemoTextarea :widget="widget"></MemoTextarea>
@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import widgetFloat from '@/mixins/widgetFloat';
 import { mapGetters, mapMutations } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
@@ -16,7 +15,6 @@ import MemoTextarea from '@/components/widget/memo/MemoTextarea';
 export default {
   name: 'Memo',
   components: { MemoTextarea, SVGLoader },
-  mixins: [widgetFloat],
   data() {
     return {
       memoContents: '',
@@ -37,6 +35,9 @@ export default {
         this.hideWidget(this.widget);
       }
     },
+    floatMousedown(e) {
+      this.$emit('floatMousedown', e);
+    },
     ...mapMutations('widget', ['hideWidget']),
   },
 };
@@ -47,7 +48,6 @@ export default {
   color: $dark-font;
   display: grid;
   grid-template-rows: 20px auto;
-  position: absolute;
   width: 200px;
   height: 200px;
   resize: both;

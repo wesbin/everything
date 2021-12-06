@@ -1,6 +1,6 @@
 <template>
-  <div class="memo-list" ref="float" :style="widget.style">
-    <div class="field-wrap" @mousedown="$_float_dragMouseDown">
+  <div class="memo-list">
+    <div class="field-wrap" @mousedown="floatMousedown">
       <div class="field start">
         <SVGLoader svg-title="plus" @click="addMemo" class="plus-svg"></SVGLoader>
       </div>
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import widgetFloat from '@/mixins/widgetFloat';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
@@ -34,7 +33,6 @@ import MemoTextarea from '@/components/widget/memo/MemoTextarea';
 export default {
   name: 'MemoList',
   components: { MemoTextarea, SVGLoader },
-  mixins: [widgetFloat],
   props: {
     widget: {
       type: Object,
@@ -63,6 +61,9 @@ export default {
         this.hideWidget(this.widget);
       }
     },
+    floatMousedown(e) {
+      this.$emit('floatMousedown', e);
+    },
     ...mapActions('widget', ['addWidget']),
     ...mapMutations('widget', ['showWidget', 'hideWidget']),
   },
@@ -75,7 +76,6 @@ export default {
   grid-template-rows: 20px auto;
   padding: 8px;
   gap: 10px;
-  position: absolute;
   width: 320px;
   height: 620px;
   z-index: 1;
