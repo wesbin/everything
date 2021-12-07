@@ -95,9 +95,9 @@ const widget = {
       // 단일 위젯 확인
       if (isSingle) {
         // 이미 생성된 단일 위젯이었다면
-        const widget = getters.findTypeWidgetList(type);
-        if (widget) {
-          commit('showWidget', widget);
+        const targetSingleWidget = getters.findTypeWidgetList(type);
+        if (targetSingleWidget) {
+          commit('showWidget', targetSingleWidget);
           return false;
         }
       }
