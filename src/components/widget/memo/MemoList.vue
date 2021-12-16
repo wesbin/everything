@@ -5,7 +5,6 @@
         <SVGLoader svg-title="plus" @click="addMemo" class="plus-svg"></SVGLoader>
       </div>
       <div class="field end">
-        <SVGLoader svg-title="trash" class="svg"></SVGLoader>
         <SVGLoader svg-title="delete" @click="closeMemoList" class="delete-svg"></SVGLoader>
       </div>
     </div>
