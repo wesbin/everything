@@ -20,7 +20,10 @@
           <MemoTextarea disabled :widget="memoWidget"></MemoTextarea>
         </div>
       </div>
+      <Memo widget="widget"></Memo>
     </div>
+
+
   </div>
 </template>
 
@@ -28,10 +31,11 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
+import Memo from '@/components/widget/memo/Memo';
 
 export default {
   name: 'MemoList',
-  components: { MemoTextarea, SVGLoader },
+  components: {Memo, MemoTextarea, SVGLoader },
   props: {
     widget: {
       type: Object,
@@ -111,6 +115,7 @@ export default {
   .memos {
     overflow: scroll;
     padding-right: 4px;
+    color: $dark-font;
 
     .memo {
       display: grid;

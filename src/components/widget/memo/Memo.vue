@@ -2,6 +2,7 @@
   <div class="memo">
     <div class="header" @mousedown="floatMousedown">
       <SVGLoader svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
+      <SVGLoader svg-title="trash" class="trash-svg"></SVGLoader>
     </div>
     <MemoTextarea :widget="widget"></MemoTextarea>
   </div>
@@ -57,6 +58,13 @@ export default {
 
   .header {
     background: $menu-header;
+  }
+
+  .trash-svg {
+    margin-right: 8px;
+    float: right;
+    cursor: pointer;
+    height: 20px;
   }
 
   .delete-svg {

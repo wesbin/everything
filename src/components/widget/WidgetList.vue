@@ -1,6 +1,6 @@
 <template>
   <div class="widget-list" v-show="toggle">
-    <div class="widget" @click="showMemoList">Memo</div>
+    <div class="widget" @click="showMemoList">MemoList</div>
   </div>
 </template>
 
