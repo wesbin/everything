@@ -2,7 +2,7 @@
   <div class="memo">
     <div class="header" @mousedown="floatMousedown">
       <SVGLoader svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
-      <SVGLoader svg-title="trash" class="trash-svg"></SVGLoader>
+      <SVGLoader svg-title="option" class="trash-svg"></SVGLoader>
     </div>
     <MemoTextarea :widget="widget"></MemoTextarea>
   </div>

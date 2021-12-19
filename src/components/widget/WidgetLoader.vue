@@ -1,7 +1,7 @@
 <template>
-  <div v-for="(widget, index) in this.getWidgetList" :key="index">
+  <template v-for="(widget, index) in this.getWidgetList" :key="index">
     <Widget :widget="widget"></Widget>
-  </div>
+  </template>
 </template>
 
 <script>

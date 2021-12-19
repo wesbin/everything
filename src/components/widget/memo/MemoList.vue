@@ -8,34 +8,27 @@
         <SVGLoader svg-title="delete" @click="closeMemoList" class="delete-svg"></SVGLoader>
       </div>
     </div>
-    <div class="memos">
+    <div class="list-body">
       <div
         class="memo"
         @click="clickMemo(memoWidget)"
         v-for="(memoWidget, index) in this.filterTypeWidgetList('memo/Memo')"
         :key="index"
       >
-        <div class="header"></div>
-        <div>
-          <MemoTextarea disabled :widget="memoWidget"></MemoTextarea>
-        </div>
+        <Memo :widget="memoWidget"></Memo>
       </div>
-      <Memo widget="widget"></Memo>
     </div>
-
-
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
-import MemoTextarea from '@/components/widget/memo/MemoTextarea';
 import Memo from '@/components/widget/memo/Memo';
 
 export default {
   name: 'MemoList',
-  components: {Memo, MemoTextarea, SVGLoader },
+  components: { Memo, SVGLoader },
   props: {
     widget: {
       type: Object,
@@ -43,8 +36,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('widget', ['getDrag']),
-    ...mapGetters('widget', ['filterTypeWidgetList']),
+    ...mapGetters('widget', ['getDrag', 'filterTypeWidgetList']),
   },
   methods: {
     addMemo() {
@@ -112,7 +104,7 @@ export default {
     }
   }
 
-  .memos {
+  .list-body {
     overflow: scroll;
     padding-right: 4px;
     color: $dark-font;

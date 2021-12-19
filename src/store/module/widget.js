@@ -4,26 +4,6 @@ const widget = {
   namespaced: true,
   state: {
     // 보여지고 있는 위젯 리스트
-    /*
-
-      ### 위젯 공통
-      fixme id: String(uuidv4())
-      type: String('memo/MemoList')
-      visible: Boolean
-      style: Object(
-        {
-          left,
-          top,
-          width,
-          height,
-          'z-index',
-        }
-      )
-
-      ### Memo
-      contents: String
-
-    */
     widgetList: [
       {
         type: 'FloatMenu',
@@ -48,6 +28,9 @@ const widget = {
     },
     filterTypeWidgetList: (state) => (type) => {
       return state.widgetList.filter((widget) => widget.type === type);
+    },
+    findIdWidgetList: (state) => (id) => {
+      return state.widgetList.find((widget) => widget.id === id);
     },
     getDrag(state) {
       return state.drag;
