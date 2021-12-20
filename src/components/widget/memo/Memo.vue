@@ -1,10 +1,11 @@
 <template>
-  <div class="memo">
+  <div class="memo" :style="memoInListStyle">
     <div class="header" @mousedown="floatMousedown">
-      <SVGLoader svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
-      <SVGLoader svg-title="option" class="trash-svg"></SVGLoader>
+      <SVGLoader v-if="!memoInList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
+      <SVGLoader v-else svg-title="option" class="trash-svg" @click="optionWindow = !optionWindow"></SVGLoader>
     </div>
     <MemoTextarea :widget="widget"></MemoTextarea>
+    <div v-if="optionWindow">TEST</div>
   </div>
 </template>
 
@@ -19,6 +20,7 @@ export default {
   data() {
     return {
       memoContents: '',
+      optionWindow: false,
     };
   },
   props: {
@@ -26,8 +28,23 @@ export default {
       type: Object,
       required: true,
     },
+    // 메모 리스트 안에 보여지는 메모의 경우
+    memoInList: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
+    memoInListStyle() {
+      const styleObject = {};
+      if (!this.memoInList) {
+        styleObject.resize = 'both';
+      } else {
+        styleObject.width = '100%';
+        styleObject.height = '150px';
+      }
+      return styleObject;
+    },
     ...mapGetters('widget', ['getDrag']),
   },
   methods: {
@@ -51,7 +68,6 @@ export default {
   grid-template-rows: 20px auto;
   width: 200px;
   height: 200px;
-  resize: both;
   overflow: hidden;
   z-index: 1;
   border: 1px solid $float-menu;

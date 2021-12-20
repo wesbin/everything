@@ -10,12 +10,12 @@
     </div>
     <div class="list-body">
       <div
-        class="memo"
+        class="list-item"
         @click="clickMemo(memoWidget)"
         v-for="(memoWidget, index) in this.filterTypeWidgetList('memo/Memo')"
         :key="index"
       >
-        <Memo :widget="memoWidget"></Memo>
+        <Memo :memoInList="true" :widget="memoWidget"></Memo>
       </div>
     </div>
   </div>
@@ -109,23 +109,12 @@ export default {
     padding-right: 4px;
     color: $dark-font;
 
-    .memo {
+    .list-item {
       display: grid;
       grid-template-rows: 10px auto;
       width: 100%;
-      min-height: 100px;
-      max-height: 300px;
+      height: 100px;
       margin-bottom: 10px;
-
-      .header {
-        background: $menu-header;
-      }
-
-      &:hover {
-        .header {
-          background: $memo-hover;
-        }
-      }
     }
   }
 }
