@@ -10,9 +10,10 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { useStore } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
+import { computed } from 'vue';
 
 export default {
   name: 'Memo',
@@ -34,29 +35,33 @@ export default {
       default: false,
     },
   },
-  computed: {
-    memoInListStyle() {
+  setup(props, { emit }) {
+    const store = useStore();
+    const getDrag = computed(() => store.getters['widget/getDrag']);
+    const hideWidget = (widget) => store.commit('widget/hideWidget', widget);
+
+    const closeMemo = () => {
+      if (!getDrag.value) {
+        hideWidget(props.widget);
+      }
+    };
+
+    const memoInListStyle = computed(() => {
       const styleObject = {};
-      if (!this.memoInList) {
+      if (!props.memoInList) {
         styleObject.resize = 'both';
       } else {
         styleObject.width = '100%';
         styleObject.height = '150px';
       }
       return styleObject;
-    },
-    ...mapGetters('widget', ['getDrag']),
-  },
-  methods: {
-    closeMemo() {
-      if (!this.getDrag) {
-        this.hideWidget(this.widget);
-      }
-    },
-    floatMousedown(e) {
-      this.$emit('floatMousedown', e);
-    },
-    ...mapMutations('widget', ['hideWidget']),
+    });
+
+    return {
+      floatMousedown: (e) => emit('floatMousedown', e),
+      closeMemo,
+      memoInListStyle,
+    };
   },
 };
 </script>

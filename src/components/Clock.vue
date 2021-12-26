@@ -12,18 +12,18 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   name: 'Clock',
-  computed: {
-    ...mapGetters('clock', ['getTime', 'getDate']),
-  },
-  methods: {
-    ...mapActions('clock', ['initClock']),
-  },
-  created() {
-    this.initClock();
+  setup() {
+    const store = useStore();
+    store.dispatch('clock/initClock');
+    return {
+      getTime: computed(() => store.getters['clock/getTime']),
+      getDate: computed(() => store.getters['clock/getDate']),
+    };
   },
 };
 </script>

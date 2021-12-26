@@ -8,7 +8,8 @@
 <script>
 import ButtonPlusMinus from '@/components/widget/ButtonPlusMinus';
 import WidgetList from '@/components/widget/WidgetList';
-import { mapGetters } from 'vuex';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
   name: 'FloatMenu',
@@ -19,23 +20,21 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      toggle: false,
-    };
-  },
-  computed: {
-    ...mapGetters('widget', ['getDrag']),
-  },
   methods: {
-    toggleMenu() {
-      if (!this.getDrag) {
-        this.toggle = !this.toggle;
-      }
-    },
     floatMousedown(e) {
       this.$emit('floatMousedown', e);
     },
+  },
+  setup() {
+    const store = useStore();
+    const toggle = ref(false);
+    const getDrag = computed(() => store.getters['widget/getDrag']);
+    const toggleMenu = () => {
+      if (!getDrag.value) {
+        toggle.value = !toggle.value;
+      }
+    };
+    return { toggleMenu, toggle };
   },
 };
 </script>

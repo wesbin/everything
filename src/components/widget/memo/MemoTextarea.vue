@@ -2,7 +2,7 @@
   <textarea class="memo-textarea" :value="widget.contents" @input="updateModelValue"></textarea>
 </template>
 <script>
-import { mapMutations } from 'vuex';
+import { useStore } from 'vuex';
 
 export default {
   name: 'MemoTextarea',
@@ -15,14 +15,19 @@ export default {
       required: true,
     },
   },
-  methods: {
-    updateModelValue(event) {
-      this.updateWidget({
-        widget: this.widget,
-        contents: event.target.value,
+  setup(props) {
+    const store = useStore();
+    const updateWidget = (payload) => store.commit('widget/updateWidget', payload);
+
+    const updateModelValue = (e) => {
+      updateWidget({
+        widget: props.widget,
+        contents: e.target.value,
       });
-    },
-    ...mapMutations('widget', ['updateWidget']),
+    };
+    return {
+      updateModelValue,
+    };
   },
 };
 </script>

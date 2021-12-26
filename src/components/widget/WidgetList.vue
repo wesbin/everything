@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { useStore } from 'vuex';
+import { computed } from 'vue';
 
 export default {
   name: 'WidgetList',
@@ -19,20 +20,20 @@ export default {
       required: true,
     },
   },
-  computed: {
-    ...mapGetters('widget', ['getDrag']),
-  },
-  methods: {
-    showMemoList() {
-      if (!this.getDrag) {
-        this.addWidget({
+  setup(props) {
+    const store = useStore();
+    const getDrag = computed(() => store.getters['widget/getDrag']);
+    const addWidget = (payload) => store.dispatch('widget/addWidget', payload);
+    const showMemoList = () => {
+      if (!getDrag.value) {
+        addWidget({
           type: 'memo/MemoList',
           isSingle: true,
-          widget: this.widget,
+          widget: props.widget,
         });
       }
-    },
-    ...mapActions('widget', ['addWidget']),
+    };
+    return { showMemoList };
   },
 };
 </script>

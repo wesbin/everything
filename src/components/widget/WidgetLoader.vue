@@ -5,15 +5,19 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { useStore } from 'vuex';
 
 import Widget from '@/components/widget/Widget';
+import { computed } from 'vue';
 
 export default {
   name: 'WidgetLoader',
   components: { Widget },
-  computed: {
-    ...mapGetters('widget', ['getWidgetList']),
+  setup() {
+    const store = useStore();
+    return {
+      getWidgetList: computed(() => store.getters['widget/getWidgetList']),
+    };
   },
 };
 </script>

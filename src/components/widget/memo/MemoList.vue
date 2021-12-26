@@ -22,9 +22,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { useStore } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import Memo from '@/components/widget/memo/Memo';
+import { computed } from 'vue';
 
 export default {
   name: 'MemoList',
@@ -35,32 +36,45 @@ export default {
       required: true,
     },
   },
-  computed: {
-    ...mapGetters('widget', ['getDrag', 'filterTypeWidgetList']),
-  },
   methods: {
-    addMemo() {
-      if (!this.getDrag) {
-        this.addWidget({
-          type: 'memo/Memo',
-          isSingle: false,
-          widget: this.widget,
-        });
-      }
-    },
-    clickMemo(memoWidget) {
-      this.showWidget(memoWidget);
-    },
-    closeMemoList() {
-      if (!this.getDrag) {
-        this.hideWidget(this.widget);
-      }
-    },
     floatMousedown(e) {
       this.$emit('floatMousedown', e);
     },
-    ...mapActions('widget', ['addWidget']),
-    ...mapMutations('widget', ['showWidget', 'hideWidget']),
+  },
+  setup(props) {
+    const store = useStore();
+    const getDrag = computed(() => store.getters['widget/getDrag']);
+    const filterTypeWidgetList = computed(() => store.getters['widget/filterTypeWidgetList']);
+    const addWidget = (payload) => store.dispatch('widget/addWidget', payload);
+    const showWidget = (widget) => store.commit('widget/showWidget', widget);
+    const hideWidget = (widget) => store.commit('widget/hideWidget', widget);
+
+    const addMemo = () => {
+      if (!getDrag.value) {
+        addWidget({
+          type: 'memo/Memo',
+          isSingle: false,
+          widget: props.widget,
+        });
+      }
+    };
+
+    const clickMemo = (memoWidget) => {
+      showWidget(memoWidget);
+    };
+
+    const closeMemoList = () => {
+      if (!getDrag.value) {
+        hideWidget(props.widget);
+      }
+    };
+
+    return {
+      addMemo,
+      clickMemo,
+      closeMemoList,
+      filterTypeWidgetList,
+    };
   },
 };
 </script>

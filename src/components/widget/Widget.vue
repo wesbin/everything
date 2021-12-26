@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 import widgetFloat from '@/mixins/widgetFloat';
 
 export default {
@@ -17,13 +17,16 @@ export default {
       required: true,
     },
   },
-  computed: {
-    componentLoader() {
-      if (this.widget.visible) {
-        return defineAsyncComponent(() => import(`@/components/widget/${this.widget.type}`));
+  setup(props) {
+    const componentLoader = computed(() => {
+      if (props.widget.visible) {
+        return defineAsyncComponent(() => import(`@/components/widget/${props.widget.type}`));
       }
       return false;
-    },
+    });
+    return {
+      componentLoader,
+    };
   },
 };
 </script>

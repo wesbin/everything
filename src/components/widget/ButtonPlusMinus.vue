@@ -14,10 +14,10 @@ export default {
       required: true,
     },
   },
-  methods: {
-    toggleMenu() {
-      this.$emit('toggle');
-    },
+  setup(props, { emit }) {
+    return {
+      toggleMenu: () => emit('toggle'),
+    };
   },
 };
 </script>
