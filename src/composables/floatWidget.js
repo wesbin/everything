@@ -1,4 +1,4 @@
-import { computed, onMounted, reactive, ref, toRefs } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useStore } from 'vuex';
 
 export default (widget) => {

@@ -40,9 +40,10 @@ body {
   align-items: center;
   justify-content: center;
 }
+// 스크롤
 *::-webkit-scrollbar {
   width: 3px;
-  height: 3px;
+  height: 0;
   &-thumb {
     background-color: $scrollbar;
     background-clip: content-box;
@@ -71,5 +72,8 @@ textarea {
   &:focus {
     outline: none;
   }
+}
+.no-select {
+  user-select: none;
 }
 </style>

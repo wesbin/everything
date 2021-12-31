@@ -1,6 +1,6 @@
 <template>
   <div class="widget-list" v-show="toggle">
-    <div class="widget" @click="showMemoList">MemoList</div>
+    <div class="widget no-select" @click="showMemoList">MemoList</div>
   </div>
 </template>
 
@@ -21,9 +21,12 @@ export default {
     },
   },
   setup(props) {
+    // Vuex
     const store = useStore();
     const getDrag = computed(() => store.getters['widget/getDrag']);
     const addWidget = (payload) => store.dispatch('widget/addWidget', payload);
+    // Method
+    // 메모 리스트 보이기 혹은 생성
     const showMemoList = () => {
       if (!getDrag.value) {
         addWidget({

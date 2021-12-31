@@ -72,13 +72,13 @@ const widget = {
   },
   actions: {
     // 플로팅 메뉴에서 위젯 클릭하면 해당하는 위젯 화면에 추가
-    addWidget({ commit, getters }, { type, isSingle, widget }) {
+    addWidget({ commit, getters }, { widget, ...args }) {
       // 위치 설정
       commit('upIndex');
       // 단일 위젯 확인
-      if (isSingle) {
+      if (args.isSingle) {
         // 이미 생성된 단일 위젯이었다면
-        const targetSingleWidget = getters.findTypeWidgetList(type);
+        const targetSingleWidget = getters.findTypeWidgetList(args.type);
         if (targetSingleWidget) {
           commit('showWidget', targetSingleWidget);
           return false;
@@ -86,13 +86,13 @@ const widget = {
       }
       commit('setWidget', {
         id: uuidv4(),
-        type: type,
         visible: true,
         style: {
           left: `calc(${widget.style.left} + ${widget.style.width}px + 5px)`,
           top: widget.style.top,
           'z-index': getters.getTopIndex,
         },
+        ...args,
       });
     },
   },

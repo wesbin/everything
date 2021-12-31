@@ -20,21 +20,22 @@ export default {
       required: true,
     },
   },
-  methods: {
-    floatMousedown(e) {
-      this.$emit('floatMousedown', e);
-    },
-  },
-  setup() {
+  setup(props, { emit }) {
+    // Vuex
     const store = useStore();
     const toggle = ref(false);
     const getDrag = computed(() => store.getters['widget/getDrag']);
+    // Method
+    // 메뉴 + - 이벤트
     const toggleMenu = () => {
       if (!getDrag.value) {
         toggle.value = !toggle.value;
       }
     };
-    return { toggleMenu, toggle };
+    // 위젯 이동
+    const floatMousedown = (e) => emit('floatMousedown', e);
+
+    return { toggleMenu, toggle, floatMousedown };
   },
 };
 </script>
@@ -43,7 +44,6 @@ export default {
 .float-menu {
   z-index: 2147483647 !important;
   background: $background;
-  //background: $float-menu-background;
 
   &.open {
     border: solid 2px $float-menu;

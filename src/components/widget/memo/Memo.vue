@@ -1,8 +1,11 @@
 <template>
-  <div class="memo" :style="memoInListStyle">
-    <div class="header" @mousedown="floatMousedown">
-      <SVGLoader v-if="!memoInList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
-      <SVGLoader v-else svg-title="option" class="trash-svg" @click="optionWindow = !optionWindow"></SVGLoader>
+  <div class="memo field-wrap direction-column shrink-0" :style="memoInListStyle">
+    <div class="header field-wrap" @mousedown="floatMousedown">
+      <div class="field" @dblclick="dblClickShowMemo"></div>
+      <div class="field grow-0">
+        <SVGLoader v-if="!memoInList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
+        <SVGLoader v-else svg-title="option" class="trash-svg" @click="optionWindow = !optionWindow"></SVGLoader>
+      </div>
     </div>
     <MemoTextarea :widget="widget"></MemoTextarea>
     <div v-if="optionWindow">TEST</div>
@@ -36,15 +39,21 @@ export default {
     },
   },
   setup(props, { emit }) {
+    // Vuex
     const store = useStore();
     const getDrag = computed(() => store.getters['widget/getDrag']);
     const hideWidget = (widget) => store.commit('widget/hideWidget', widget);
-
+    // Method
+    // 메모 닫기
     const closeMemo = () => {
       if (!getDrag.value) {
         hideWidget(props.widget);
       }
     };
+    // 더블클릭 해서 메모 열기
+    const dblClickShowMemo = () => emit('dblClickShowMemo', props.widget);
+    // 위젯 이동
+    const floatMousedown = (e) => emit('floatMousedown', e);
 
     const memoInListStyle = computed(() => {
       const styleObject = {};
@@ -58,9 +67,10 @@ export default {
     });
 
     return {
-      floatMousedown: (e) => emit('floatMousedown', e),
+      floatMousedown,
       closeMemo,
       memoInListStyle,
+      dblClickShowMemo,
     };
   },
 };
@@ -69,27 +79,26 @@ export default {
 <style lang="scss" scoped>
 .memo {
   color: $dark-font;
-  display: grid;
-  grid-template-rows: 20px auto;
   width: 200px;
   height: 200px;
   overflow: hidden;
   z-index: 1;
   border: 1px solid $float-menu;
+  box-sizing: border-box;
 
   .header {
     background: $menu-header;
   }
 
   .trash-svg {
-    margin-right: 8px;
+    margin: 0 8px;
     float: right;
     cursor: pointer;
     height: 20px;
   }
 
   .delete-svg {
-    margin-right: 8px;
+    margin: 0 8px;
     float: right;
     cursor: pointer;
     height: 20px;

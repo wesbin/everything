@@ -16,9 +16,11 @@ export default {
     },
   },
   setup(props) {
+    // Vuex
     const store = useStore();
     const updateWidget = (payload) => store.commit('widget/updateWidget', payload);
-
+    // Method
+    // 메모 입력
     const updateModelValue = (e) => {
       updateWidget({
         widget: props.widget,

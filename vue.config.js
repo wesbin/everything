@@ -7,6 +7,7 @@ module.exports = {
       sass: {
         prependData: `
           @import "@/assets/css/_colors.scss";
+          @import "@/assets/css/_field.scss";
         `,
       },
     },
