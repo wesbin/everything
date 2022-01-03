@@ -8,6 +8,7 @@ module.exports = {
         prependData: `
           @import "@/assets/css/_colors.scss";
           @import "@/assets/css/_field.scss";
+          @import "@/assets/css/_common.scss";
         `,
       },
     },

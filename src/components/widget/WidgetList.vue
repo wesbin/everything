@@ -1,6 +1,6 @@
 <template>
   <div class="widget-list" v-show="toggle">
-    <div class="widget no-select" @click="showMemoList">MemoList</div>
+    <div class="widget click-menu" @click="showMemoList">MemoList</div>
   </div>
 </template>
 
@@ -48,7 +48,6 @@ export default {
   .widget {
     padding-left: 4px;
     padding-top: 4px;
-    cursor: pointer;
   }
 }
 </style>

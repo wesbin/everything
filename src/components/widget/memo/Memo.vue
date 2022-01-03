@@ -1,14 +1,14 @@
 <template>
-  <div class="memo field-wrap direction-column shrink-0" :style="memoInListStyle">
-    <div class="header field-wrap" @mousedown="floatMousedown">
+  <div class="memo field-wrap --direction-column --shrink-0" :style="memoInListStyle">
+    <div class="header field-wrap" @mousedown="dragMouseDown">
       <div class="field" @dblclick="dblClickShowMemo"></div>
-      <div class="field grow-0">
+      <div class="action-area field --grow-0">
         <SVGLoader v-if="!memoInList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
         <SVGLoader v-else svg-title="option" class="trash-svg" @click="optionWindow = !optionWindow"></SVGLoader>
+        <div v-if="optionWindow" class="option-list click-menu">TESTESTSETSTSETSET</div>
       </div>
     </div>
     <MemoTextarea :widget="widget"></MemoTextarea>
-    <div v-if="optionWindow">TEST</div>
   </div>
 </template>
 
@@ -53,7 +53,7 @@ export default {
     // 더블클릭 해서 메모 열기
     const dblClickShowMemo = () => emit('dblClickShowMemo', props.widget);
     // 위젯 이동
-    const floatMousedown = (e) => emit('floatMousedown', e);
+    const dragMouseDown = (e) => emit('dragMouseDown', e);
 
     const memoInListStyle = computed(() => {
       const styleObject = {};
@@ -67,7 +67,7 @@ export default {
     });
 
     return {
-      floatMousedown,
+      dragMouseDown,
       closeMemo,
       memoInListStyle,
       dblClickShowMemo,
@@ -81,13 +81,24 @@ export default {
   color: $dark-font;
   width: 200px;
   height: 200px;
-  overflow: hidden;
   z-index: 1;
   border: 1px solid $float-menu;
   box-sizing: border-box;
 
   .header {
     background: $menu-header;
+  }
+
+  .action-area {
+    position: relative;
+
+    .option-list {
+      position: absolute;
+      top: 100%;
+      border: 1px solid black;
+      cursor: pointer;
+      background-color: white;
+    }
   }
 
   .trash-svg {

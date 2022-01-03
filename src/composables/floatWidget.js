@@ -21,6 +21,7 @@ export default (widget) => {
   const float = ref(null);
 
   // methods
+  // 드래그 이벤트 진입점 - 원하는 태그에 mousedown 이벤트로 해당 메서드 걸어줘야 함
   const dragMouseDown = (event) => {
     event.preventDefault();
     setDrag(false);
@@ -30,7 +31,7 @@ export default (widget) => {
     document.onmousemove = elementDrag;
     document.onmouseup = closeDragElement;
   };
-
+  // 실제 드래그 동작
   const elementDrag = (event) => {
     event.preventDefault();
     setDrag(true);
@@ -42,15 +43,17 @@ export default (widget) => {
     float.value.style.top = float.value.offsetTop - positions.movementY + 'px';
     float.value.style.left = float.value.offsetLeft - positions.movementX + 'px';
   };
-
+  // 드래그 끝
   const closeDragElement = () => {
-    rePositioning();
+    const rePosition = rePositioning();
+    savePosition(rePosition);
     document.onmouseup = null;
     document.onmousemove = null;
   };
-
+  // 드래그 끝나고 위젯 위치 검증 후 위치 값 반환
   const rePositioning = () => {
     // 플로팅 객체의 너비, 높이 등
+    // fixme getBoundingClientRect를 불러오는게 좋은건지 아니면 widget이나 float에 담겨있는 값을 재활용하는게 좋을지
     const rect = float.value.getBoundingClientRect();
     // 화면 너비
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -72,20 +75,15 @@ export default (widget) => {
     if (rect.bottom > vh) {
       float.value.style.top = `${vh - rect.height}px`;
     }
-    savePosition(float.value.style.left || '13%', float.value.style.top || '13%', rect.width, rect.height);
+    return {
+      left: float.value.style.left || '13%',
+      top: float.value.style.top || '13%',
+      width: rect.width,
+      height: rect.height,
+    };
   };
-
-  const focusOn = () => {
-    upIndex();
-    updateWidget({
-      widget: widget,
-      style: {
-        'z-index': getTopIndex.value,
-      },
-    });
-  };
-
-  const savePosition = (left, top, width, height) => {
+  // 이동된 위젯 포지션 저장
+  const savePosition = ({ left, top, width, height }) => {
     updateWidget({
       widget: widget,
       style: {
@@ -96,7 +94,17 @@ export default (widget) => {
       },
     });
   };
-
+  // 위젯 클릭 시 z-index 가장 앞으로
+  const focusOn = () => {
+    upIndex();
+    updateWidget({
+      widget: widget,
+      style: {
+        'z-index': getTopIndex.value,
+      },
+    });
+  };
+  // float ref 값 참조해서 focusOn 이벤트 부착
   onMounted(() => {
     float.value.addEventListener('mousedown', () => {
       focusOn();

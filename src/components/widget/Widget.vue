@@ -1,6 +1,6 @@
 <template>
   <div ref="float" class="widget" :style="widget.style">
-    <component :is="componentLoader" :widget="widget" @floatMousedown="dragMouseDown"></component>
+    <component :is="componentLoader" :widget="widget" @dragMouseDown="dragMouseDown"></component>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   },
   setup(props) {
     // Composable
-    // 지금은 사실 따로 빼서 관리하는게 의미가 없긴 해
+    // fixme 지금은 사실 따로 빼서 관리하는게 의미가 없긴 해
     const { dragMouseDown, float } = floatWidget(props.widget);
     // Method
     // Dynamic Component Loader

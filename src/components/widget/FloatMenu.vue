@@ -1,5 +1,5 @@
 <template>
-  <div class="float-menu" :class="{ open: toggle }" @mousedown="floatMousedown">
+  <div class="float-menu" :class="{ open: toggle }" @mousedown="dragMouseDown">
     <ButtonPlusMinus @toggle="toggleMenu" :toggle="toggle"></ButtonPlusMinus>
     <WidgetList :toggle="toggle" :widget="widget"></WidgetList>
   </div>
@@ -33,9 +33,9 @@ export default {
       }
     };
     // 위젯 이동
-    const floatMousedown = (e) => emit('floatMousedown', e);
+    const dragMouseDown = (e) => emit('dragMouseDown', e);
 
-    return { toggleMenu, toggle, floatMousedown };
+    return { toggleMenu, toggle, dragMouseDown };
   },
 };
 </script>

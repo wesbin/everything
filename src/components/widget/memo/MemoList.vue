@@ -1,15 +1,15 @@
 <template>
-  <div class="memo-list field-wrap direction-column">
-    <div class="field-wrap" @mousedown="floatMousedown">
-      <div class="field start">
+  <div class="memo-list field-wrap --direction-column">
+    <div class="field-wrap" @mousedown="dragMouseDown">
+      <div class="field --start">
         <SVGLoader svg-title="plus" @click="addMemo" class="plus-svg"></SVGLoader>
       </div>
       <strong class="no-select">MemoList</strong>
-      <div class="field end">
+      <div class="field --end">
         <SVGLoader svg-title="delete" @click="closeMemoList" class="delete-svg"></SVGLoader>
       </div>
     </div>
-    <div class="list-body field-wrap direction-column">
+    <div class="list-body field-wrap --direction-column">
       <template v-for="(memoWidget, index) in this.filterTypeWidgetList('memo/Memo')" :key="index">
         <Memo :memoInList="true" :widget="memoWidget" @dblClickShowMemo="dblClickShowMemo"></Memo>
       </template>
@@ -63,13 +63,13 @@ export default {
       }
     };
     // 위젯 이동
-    const floatMousedown = (e) => emit('floatMousedown', e);
+    const dragMouseDown = (e) => emit('dragMouseDown', e);
 
     return {
       addMemo,
       dblClickShowMemo,
       closeMemoList,
-      floatMousedown,
+      dragMouseDown,
       filterTypeWidgetList,
     };
   },
@@ -97,7 +97,8 @@ export default {
 
   .list-body {
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: visible;
     padding-right: 4px;
     color: $dark-font;
     gap: 10px;
