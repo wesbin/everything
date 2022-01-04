@@ -5,7 +5,7 @@
       <div class="action-area field --grow-0">
         <SVGLoader v-if="!memoInList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
         <SVGLoader v-else svg-title="option" class="trash-svg" @click="optionWindow = !optionWindow"></SVGLoader>
-        <div v-if="optionWindow" class="option-list click-menu">TESTESTSETSTSETSET</div>
+        <teleport to="body" v-if="optionWindow" class="option-list click-menu">TESTESTSETSTSETSET</teleport>
       </div>
     </div>
     <MemoTextarea :widget="widget"></MemoTextarea>
@@ -98,6 +98,7 @@ export default {
       border: 1px solid black;
       cursor: pointer;
       background-color: white;
+      color: black;
     }
   }
 
