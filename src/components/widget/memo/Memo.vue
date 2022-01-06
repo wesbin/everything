@@ -20,7 +20,7 @@
 import { useStore } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
-import {computed, reactive, ref} from 'vue';
+import { computed, reactive, ref } from 'vue';
 import MemoOption from '@/components/widget/memo/MemoOption';
 
 export default {
@@ -40,7 +40,7 @@ export default {
   setup(props, { emit }) {
     // Data
     const optionWindow = ref(false);
-    const memoOptionPosition = reactive({top: '', left: ''})
+    const memoOptionPosition = reactive({ top: '', left: '' });
     // Vuex
     const store = useStore();
     const getDrag = computed(() => store.getters['widget/getDrag']);
@@ -72,7 +72,7 @@ export default {
       optionWindow.value = !optionWindow.value;
       memoOptionPosition.top = '25%';
       memoOptionPosition.left = '25%';
-    }
+    };
 
     return {
       optionWindow,
@@ -81,7 +81,7 @@ export default {
       memoInListStyle,
       dblClickShowMemo,
       clickMemoOption,
-      memoOptionPosition
+      memoOptionPosition,
     };
   },
 };
