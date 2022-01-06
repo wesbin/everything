@@ -4,8 +4,12 @@
       <div class="field" @dblclick="dblClickShowMemo"></div>
       <div class="action-area field --grow-0">
         <SVGLoader v-if="!memoInList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
-        <SVGLoader v-else svg-title="option" class="trash-svg" @click="optionWindow = !optionWindow"></SVGLoader>
-        <teleport to="body" v-if="optionWindow" class="option-list click-menu">TESTESTSETSTSETSET</teleport>
+        <div v-else>
+          <SVGLoader svg-title="option" class="trash-svg" @click="clickMemoOption"></SVGLoader>
+          <teleport to="body" v-if="optionWindow">
+            <MemoOption :memoOptionPosition="memoOptionPosition"></MemoOption>
+          </teleport>
+        </div>
       </div>
     </div>
     <MemoTextarea :widget="widget"></MemoTextarea>
@@ -16,17 +20,12 @@
 import { useStore } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
-import { computed } from 'vue';
+import {computed, reactive, ref} from 'vue';
+import MemoOption from '@/components/widget/memo/MemoOption';
 
 export default {
   name: 'Memo',
-  components: { MemoTextarea, SVGLoader },
-  data() {
-    return {
-      memoContents: '',
-      optionWindow: false,
-    };
-  },
+  components: { MemoOption, MemoTextarea, SVGLoader },
   props: {
     widget: {
       type: Object,
@@ -39,6 +38,9 @@ export default {
     },
   },
   setup(props, { emit }) {
+    // Data
+    const optionWindow = ref(false);
+    const memoOptionPosition = reactive({top: '', left: ''})
     // Vuex
     const store = useStore();
     const getDrag = computed(() => store.getters['widget/getDrag']);
@@ -54,7 +56,7 @@ export default {
     const dblClickShowMemo = () => emit('dblClickShowMemo', props.widget);
     // 위젯 이동
     const dragMouseDown = (e) => emit('dragMouseDown', e);
-
+    // 메모 리스트에 포함된 메모인 경우 스타일 변경
     const memoInListStyle = computed(() => {
       const styleObject = {};
       if (!props.memoInList) {
@@ -65,12 +67,21 @@ export default {
       }
       return styleObject;
     });
+    // 메모 옵션 클릭 시
+    const clickMemoOption = () => {
+      optionWindow.value = !optionWindow.value;
+      memoOptionPosition.top = '25%';
+      memoOptionPosition.left = '25%';
+    }
 
     return {
+      optionWindow,
       dragMouseDown,
       closeMemo,
       memoInListStyle,
       dblClickShowMemo,
+      clickMemoOption,
+      memoOptionPosition
     };
   },
 };
@@ -91,15 +102,6 @@ export default {
 
   .action-area {
     position: relative;
-
-    .option-list {
-      position: absolute;
-      top: 100%;
-      border: 1px solid black;
-      cursor: pointer;
-      background-color: white;
-      color: black;
-    }
   }
 
   .trash-svg {
