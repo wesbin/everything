@@ -14,7 +14,6 @@ export default {
   name: 'WidgetLoader',
   components: { Widget },
   setup() {
-    // Vuex
     const store = useStore();
     const getWidgetList = computed(() => store.getters['widget/getWidgetList']);
     return {

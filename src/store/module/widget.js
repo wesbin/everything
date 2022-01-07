@@ -6,7 +6,7 @@ const widget = {
     // 보여지고 있는 위젯 리스트
     widgetList: [
       {
-        type: 'FloatMenu',
+        type: 'Navigation',
         visible: true,
         style: {},
       },

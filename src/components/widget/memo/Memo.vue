@@ -4,11 +4,9 @@
       <div class="field" @dblclick="dblClickShowMemo"></div>
       <div class="action-area field --grow-0">
         <SVGLoader v-if="!memoInList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
-        <div v-else>
-          <SVGLoader svg-title="option" class="trash-svg" @click="clickMemoOption"></SVGLoader>
-          <teleport to="body" v-if="optionWindow">
-            <MemoOption :memoOptionPosition="memoOptionPosition"></MemoOption>
-          </teleport>
+        <div v-else @click="clickMemoOption">
+          <SVGLoader svg-title="option" class="trash-svg"></SVGLoader>
+          <MemoOption v-if="optionWindow" :memoOptionPosition="memoOptionPosition"></MemoOption>
         </div>
       </div>
     </div>
@@ -20,7 +18,7 @@
 import { useStore } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
-import { computed, reactive, ref } from 'vue';
+import { computed, getCurrentInstance, reactive, ref } from 'vue';
 import MemoOption from '@/components/widget/memo/MemoOption';
 
 export default {
@@ -38,15 +36,10 @@ export default {
     },
   },
   setup(props, { emit }) {
-    // Data
-    const optionWindow = ref(false);
-    const memoOptionPosition = reactive({ top: '', left: '' });
-    // Vuex
     const store = useStore();
+    // 메모 닫기
     const getDrag = computed(() => store.getters['widget/getDrag']);
     const hideWidget = (widget) => store.commit('widget/hideWidget', widget);
-    // Method
-    // 메모 닫기
     const closeMemo = () => {
       if (!getDrag.value) {
         hideWidget(props.widget);
@@ -68,10 +61,13 @@ export default {
       return styleObject;
     });
     // 메모 옵션 클릭 시
-    const clickMemoOption = () => {
+    const optionWindow = ref(false);
+    const memoOptionPosition = reactive({ top: '', left: '' });
+    const clickMemoOption = (e) => {
       optionWindow.value = !optionWindow.value;
-      memoOptionPosition.top = '25%';
-      memoOptionPosition.left = '25%';
+      const rect = e.currentTarget.getBoundingClientRect();
+      memoOptionPosition.top = `${rect.top + rect.height}px`;
+      memoOptionPosition.left = `${rect.left}px`;
     };
 
     return {

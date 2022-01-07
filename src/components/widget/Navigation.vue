@@ -12,7 +12,7 @@ import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
-  name: 'FloatMenu',
+  name: 'Navigation',
   components: { WidgetList, ButtonPlusMinus },
   props: {
     widget: {
@@ -21,12 +21,10 @@ export default {
     },
   },
   setup(props, { emit }) {
-    // Vuex
     const store = useStore();
+    // 메뉴 + - 이벤트
     const toggle = ref(false);
     const getDrag = computed(() => store.getters['widget/getDrag']);
-    // Method
-    // 메뉴 + - 이벤트
     const toggleMenu = () => {
       if (!getDrag.value) {
         toggle.value = !toggle.value;
@@ -42,7 +40,6 @@ export default {
 
 <style lang="scss" scoped>
 .float-menu {
-  z-index: 2147483647 !important;
   background: $background;
 
   &.open {

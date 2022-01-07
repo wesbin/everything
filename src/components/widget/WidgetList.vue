@@ -21,12 +21,11 @@ export default {
     },
   },
   setup(props) {
-    // Vuex
     const store = useStore();
+
+    // 메모 리스트 보이기 혹은 생성
     const getDrag = computed(() => store.getters['widget/getDrag']);
     const addWidget = (payload) => store.dispatch('widget/addWidget', payload);
-    // Method
-    // 메모 리스트 보이기 혹은 생성
     const showMemoList = () => {
       if (!getDrag.value) {
         addWidget({

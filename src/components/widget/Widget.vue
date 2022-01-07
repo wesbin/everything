@@ -6,7 +6,7 @@
 
 <script>
 import { computed, defineAsyncComponent } from 'vue';
-import floatWidget from '@/composables/floatWidget';
+import floatWidget from '@/composables/floating';
 
 export default {
   name: 'Widget',
@@ -17,10 +17,8 @@ export default {
     },
   },
   setup(props) {
-    // Composable
     // fixme 지금은 사실 따로 빼서 관리하는게 의미가 없긴 해
     const { dragMouseDown, float } = floatWidget(props.widget);
-    // Method
     // Dynamic Component Loader
     const componentLoader = computed(() => {
       if (props.widget.visible) {

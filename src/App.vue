@@ -30,7 +30,7 @@ body {
   font-family: AppleSDGothicNeoL, sans-serif;
   color: $white-font;
   margin: 0;
-  //overflow: hidden;
+  overflow: hidden;
 }
 .container {
   background-color: $background;

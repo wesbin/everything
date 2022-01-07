@@ -33,15 +33,11 @@ export default {
     },
   },
   setup(props, { emit }) {
-    // Vuex
     const store = useStore();
-    const getDrag = computed(() => store.getters['widget/getDrag']);
+
     const filterTypeWidgetList = computed(() => store.getters['widget/filterTypeWidgetList']);
-    const addWidget = (payload) => store.dispatch('widget/addWidget', payload);
-    const showWidget = (widget) => store.commit('widget/showWidget', widget);
-    const hideWidget = (widget) => store.commit('widget/hideWidget', widget);
-    // Method
     // 메모 추가
+    const addWidget = (payload) => store.dispatch('widget/addWidget', payload);
     const addMemo = () => {
       if (!getDrag.value) {
         addWidget({
@@ -53,10 +49,13 @@ export default {
       }
     };
     // 더블클릭해서 메모 열기
+    const showWidget = (widget) => store.commit('widget/showWidget', widget);
     const dblClickShowMemo = (memoWidget) => {
       showWidget(memoWidget);
     };
     // 메모 리스트 위젯 닫기
+    const getDrag = computed(() => store.getters['widget/getDrag']);
+    const hideWidget = (widget) => store.commit('widget/hideWidget', widget);
     const closeMemoList = () => {
       if (!getDrag.value) {
         hideWidget(props.widget);
