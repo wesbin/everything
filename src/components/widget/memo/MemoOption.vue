@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {useStore} from 'vuex';
+import { useStore } from 'vuex';
 
 export default {
   name: 'MemoOption',
@@ -19,7 +19,6 @@ export default {
     const store = useStore();
 
     // 메모 삭제
-
 
     return {};
   },
