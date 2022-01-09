@@ -1,12 +1,12 @@
 <template>
-  <teleport to="body">
-    <div class="memo-option click-menu" :style="memoOptionPosition">메모 삭제</div>
-  </teleport>
+  <div>
+    <teleport to="body">
+      <div class="memo-option click-menu" @click="deleteMemo" :style="memoOptionPosition">메모 삭제</div>
+    </teleport>
+  </div>
 </template>
 
 <script>
-import { useStore } from 'vuex';
-
 export default {
   name: 'MemoOption',
   props: {
@@ -15,12 +15,10 @@ export default {
       type: Object,
     },
   },
-  setup(props, context) {
-    const store = useStore();
-
-    // 메모 삭제
-
-    return {};
+  setup(props, { emit }) {
+    return {
+      deleteMemo: () => emit('deleteMemo'),
+    };
   },
 };
 </script>

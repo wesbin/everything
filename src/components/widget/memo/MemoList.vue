@@ -11,7 +11,12 @@
     </div>
     <div class="list-body field-wrap --direction-column">
       <template v-for="(memoWidget, index) in this.filterTypeWidgetList('memo/Memo')" :key="index">
-        <Memo :memoInList="true" :widget="memoWidget" @dblClickShowMemo="dblClickShowMemo"></Memo>
+        <Memo
+          v-if="!memoWidget.delete"
+          :memoInList="true"
+          :widget="memoWidget"
+          @dblClickShowMemo="dblClickShowMemo"
+        ></Memo>
       </template>
     </div>
   </div>
@@ -45,6 +50,7 @@ export default {
           isSingle: false,
           visible: false,
           widget: props.widget,
+          contents: '',
         });
       }
     };

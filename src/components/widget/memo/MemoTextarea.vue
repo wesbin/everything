@@ -1,32 +1,18 @@
 <template>
-  <textarea class="memo-textarea" :value="widget.contents" @input="updateModelValue"></textarea>
+  <textarea class="memo-textarea" :value="contents" @input="updateMemoContents"></textarea>
 </template>
 <script>
-import { useStore } from 'vuex';
-
 export default {
   name: 'MemoTextarea',
   props: {
-    modelValue: {
+    contents: {
       type: String,
-    },
-    widget: {
-      type: Object,
       required: true,
     },
   },
-  setup(props) {
-    const store = useStore();
-    // 메모 입력
-    const updateWidget = (payload) => store.commit('widget/updateWidget', payload);
-    const updateModelValue = (e) => {
-      updateWidget({
-        widget: props.widget,
-        contents: e.target.value,
-      });
-    };
+  setup(props, { emit }) {
     return {
-      updateModelValue,
+      updateMemoContents: (e) => emit('updateMemoContents', e.target.value),
     };
   },
 };

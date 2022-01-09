@@ -69,6 +69,12 @@ const widget = {
     setDrag(state, bool) {
       state.drag = bool;
     },
+    // 위젯 삭제
+    deleteWidget(state, id) {
+      const targetWidget = state.widgetList.find((widget) => widget.id === id);
+      targetWidget.visible = false;
+      targetWidget.delete = true;
+    },
   },
   actions: {
     // 플로팅 메뉴에서 위젯 클릭하면 해당하는 위젯 화면에 추가
@@ -87,6 +93,7 @@ const widget = {
       commit('setWidget', {
         id: uuidv4(),
         visible: true,
+        delete: false,
         style: {
           left: `calc(${widget.style.left} + ${widget.style.width}px + 5px)`,
           top: widget.style.top,

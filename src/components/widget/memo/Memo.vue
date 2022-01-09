@@ -6,11 +6,15 @@
         <SVGLoader v-if="!memoInList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
         <div v-else @click="clickMemoOption">
           <SVGLoader svg-title="option" class="trash-svg"></SVGLoader>
-          <MemoOption v-if="optionWindow" :memoOptionPosition="memoOptionPosition"></MemoOption>
+          <MemoOption
+            v-if="optionWindow"
+            @deleteMemo="deleteMemo"
+            :memoOptionPosition="memoOptionPosition"
+          ></MemoOption>
         </div>
       </div>
     </div>
-    <MemoTextarea :widget="widget"></MemoTextarea>
+    <MemoTextarea @updateMemoContents="updateMemoContents" :contents="widget.contents"></MemoTextarea>
   </div>
 </template>
 
@@ -18,7 +22,7 @@
 import { useStore } from 'vuex';
 import SVGLoader from '@/components/utils/SVGLoader';
 import MemoTextarea from '@/components/widget/memo/MemoTextarea';
-import { computed, getCurrentInstance, reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import MemoOption from '@/components/widget/memo/MemoOption';
 
 export default {
@@ -69,6 +73,19 @@ export default {
       memoOptionPosition.top = `${rect.top + rect.height}px`;
       memoOptionPosition.left = `${rect.left}px`;
     };
+    // 메모 내용 작성
+    const updateWidget = (payload) => store.commit('widget/updateWidget', payload);
+    const updateMemoContents = (contents) => {
+      updateWidget({
+        widget: props.widget,
+        contents: contents,
+      });
+    };
+    // 메모 삭제
+    const deleteWidget = (id) => store.commit('widget/deleteWidget', id);
+    const deleteMemo = () => {
+      deleteWidget(props.widget.id);
+    };
 
     return {
       optionWindow,
@@ -78,6 +95,8 @@ export default {
       dblClickShowMemo,
       clickMemoOption,
       memoOptionPosition,
+      updateMemoContents,
+      deleteMemo,
     };
   },
 };
