@@ -23,7 +23,7 @@ export default {
   setup(props, { emit }) {
     const store = useStore();
     // 메뉴 + - 이벤트
-    const toggle = ref(false);
+    const toggle = ref(true);
     const getDrag = computed(() => store.getters['widget/getDrag']);
     const toggleMenu = () => {
       if (!getDrag.value) {

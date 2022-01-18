@@ -11,12 +11,7 @@
     </div>
     <div class="list-body field-wrap --direction-column">
       <template v-for="(memoWidget, index) in filterTypeWidgetList('memo/Memo')" :key="index">
-        <Memo
-          v-if="!memoWidget.delete"
-          :inList="true"
-          :widget="memoWidget"
-          @dblClickShowMemo="dblClickShowMemo"
-        ></Memo>
+        <Memo v-if="!memoWidget.delete" :inList="true" :widget="memoWidget" @showMemo="showWidget"></Memo>
       </template>
     </div>
   </div>
@@ -56,9 +51,6 @@ export default {
     };
     // 더블클릭해서 메모 열기
     const showWidget = (widget) => store.commit('widget/showWidget', widget);
-    const dblClickShowMemo = (memoWidget) => {
-      showWidget(memoWidget);
-    };
     // 메모 리스트 위젯 닫기
     const getDrag = computed(() => store.getters['widget/getDrag']);
     const hideWidget = (widget) => store.commit('widget/hideWidget', widget);
@@ -72,7 +64,7 @@ export default {
 
     return {
       addMemo,
-      dblClickShowMemo,
+      showWidget,
       closeMemoList,
       dragMouseDown,
       filterTypeWidgetList,

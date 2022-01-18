@@ -1,7 +1,7 @@
 <template>
   <div class="memo field-wrap --direction-column --shrink-0" :style="memoInListStyle">
     <div class="header field-wrap" @mousedown="dragMouseDown">
-      <div class="field" @dblclick="dblClickShowMemo"></div>
+      <div class="field" @dblclick="showMemo"></div>
       <div class="action-area field --grow-0">
         <SVGLoader v-if="!inList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
         <div v-else @click="clickMemoOption">
@@ -9,6 +9,7 @@
           <MemoOption
             v-if="optionWindow"
             @deleteMemo="deleteMemo"
+            @showMemo="showMemo"
             :memoOptionPosition="memoOptionPosition"
           ></MemoOption>
         </div>
@@ -50,7 +51,7 @@ export default {
       }
     };
     // 더블클릭 해서 메모 열기
-    const dblClickShowMemo = () => emit('dblClickShowMemo', props.widget);
+    const showMemo = () => emit('showMemo', props.widget);
     // 위젯 이동
     const dragMouseDown = (e) => emit('dragMouseDown', e);
     // 메모 리스트에 포함된 메모인 경우 스타일 변경
@@ -92,7 +93,7 @@ export default {
       dragMouseDown,
       closeMemo,
       memoInListStyle,
-      dblClickShowMemo,
+      showMemo,
       clickMemoOption,
       memoOptionPosition,
       updateMemoContents,

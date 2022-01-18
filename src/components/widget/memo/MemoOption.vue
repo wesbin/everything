@@ -1,7 +1,10 @@
 <template>
   <div>
     <teleport to="body">
-      <div class="memo-option click-menu" @click="deleteMemo" :style="memoOptionPosition">메모 삭제</div>
+      <div class="memo-option click-menu" :style="memoOptionPosition">
+        <div @click="showMemo">메모 열기</div>
+        <div @click="deleteMemo">메모 삭제</div>
+      </div>
     </teleport>
   </div>
 </template>
@@ -17,6 +20,7 @@ export default {
   },
   setup(props, { emit }) {
     return {
+      showMemo: () => emit('showMemo'),
       deleteMemo: () => emit('deleteMemo'),
     };
   },
@@ -27,9 +31,12 @@ export default {
 .memo-option {
   position: absolute;
   z-index: 2147483647;
-  border: 1px solid $float-menu;
-  background-color: $menu-header;
   vertical-align: center;
-  padding: 2px 4px;
+
+  div {
+    border: 1px solid $float-menu;
+    background-color: $menu-header;
+    padding: 2px 4px;
+  }
 }
 </style>
