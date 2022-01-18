@@ -3,7 +3,7 @@
     <div class="header field-wrap" @mousedown="dragMouseDown">
       <div class="field" @dblclick="dblClickShowMemo"></div>
       <div class="action-area field --grow-0">
-        <SVGLoader v-if="!memoInList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
+        <SVGLoader v-if="!inList" svg-title="delete" @click="closeMemo" class="delete-svg"></SVGLoader>
         <div v-else @click="clickMemoOption">
           <SVGLoader svg-title="option" class="trash-svg"></SVGLoader>
           <MemoOption
@@ -34,7 +34,7 @@ export default {
       required: true,
     },
     // 메모 리스트 안에 보여지는 메모의 경우
-    memoInList: {
+    inList: {
       type: Boolean,
       default: false,
     },
@@ -56,7 +56,7 @@ export default {
     // 메모 리스트에 포함된 메모인 경우 스타일 변경
     const memoInListStyle = computed(() => {
       const styleObject = {};
-      if (!props.memoInList) {
+      if (!props.inList) {
         styleObject.resize = 'both';
       } else {
         styleObject.width = '100%';
@@ -108,6 +108,7 @@ export default {
   width: 200px;
   height: 200px;
   z-index: 1;
+  overflow: auto;
   border: 1px solid $float-menu;
   box-sizing: border-box;
 

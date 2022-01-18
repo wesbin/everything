@@ -6,7 +6,7 @@ const widget = {
     // 보여지고 있는 위젯 리스트
     widgetList: [
       {
-        type: 'Navigation',
+        type: 'navigation/Navigation',
         visible: true,
         style: {},
       },
@@ -90,6 +90,7 @@ const widget = {
           return false;
         }
       }
+      // fixme 덮어쓰기가 효율적인 방법인거 같진 않아
       commit('setWidget', {
         id: uuidv4(),
         visible: true,

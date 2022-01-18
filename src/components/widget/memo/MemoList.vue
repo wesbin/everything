@@ -10,10 +10,10 @@
       </div>
     </div>
     <div class="list-body field-wrap --direction-column">
-      <template v-for="(memoWidget, index) in this.filterTypeWidgetList('memo/Memo')" :key="index">
+      <template v-for="(memoWidget, index) in filterTypeWidgetList('memo/Memo')" :key="index">
         <Memo
           v-if="!memoWidget.delete"
-          :memoInList="true"
+          :inList="true"
           :widget="memoWidget"
           @dblClickShowMemo="dblClickShowMemo"
         ></Memo>
@@ -46,10 +46,10 @@ export default {
     const addMemo = () => {
       if (!getDrag.value) {
         addWidget({
+          widget: props.widget,
           type: 'memo/Memo',
           isSingle: false,
           visible: false,
-          widget: props.widget,
           contents: '',
         });
       }

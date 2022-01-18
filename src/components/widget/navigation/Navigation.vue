@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ButtonPlusMinus from '@/components/widget/ButtonPlusMinus';
-import WidgetList from '@/components/widget/WidgetList';
+import ButtonPlusMinus from '@/components/widget/navigation/ButtonPlusMinus';
+import WidgetList from '@/components/widget/navigation/WidgetList';
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
