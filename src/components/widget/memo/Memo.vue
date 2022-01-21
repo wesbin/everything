@@ -41,63 +41,75 @@ export default {
     },
   },
   setup(props, { emit }) {
-    const store = useStore();
-    // 메모 닫기
-    const getDrag = computed(() => store.getters['widget/getDrag']);
-    const hideWidget = (widget) => store.commit('widget/hideWidget', widget);
-    const closeMemo = () => {
-      if (!getDrag.value) {
-        hideWidget(props.widget);
-      }
+    // Vuex
+    const _store = useStore();
+    const store = {
+      getDrag: computed(() => _store.getters['widget/getDrag']),
+      updateWidget: (payload) => _store.commit('widget/updateWidget', payload),
+      hideWidget: (widget) => _store.commit('widget/hideWidget', widget),
+      deleteWidget: (id) => _store.commit('widget/deleteWidget', id),
     };
-    // 더블클릭 해서 메모 열기
-    const showMemo = () => emit('showMemo', props.widget);
-    // 위젯 이동
-    const dragMouseDown = (e) => emit('dragMouseDown', e);
-    // 메모 리스트에 포함된 메모인 경우 스타일 변경
-    const memoInListStyle = computed(() => {
-      const styleObject = {};
-      if (!props.inList) {
-        styleObject.resize = 'both';
-      } else {
-        styleObject.width = '100%';
-        styleObject.height = '150px';
-      }
-      return styleObject;
-    });
-    // 메모 옵션 클릭 시
-    const optionWindow = ref(false);
-    const memoOptionPosition = reactive({ top: '', left: '' });
-    const clickMemoOption = (e) => {
-      optionWindow.value = !optionWindow.value;
-      const rect = e.currentTarget.getBoundingClientRect();
-      memoOptionPosition.top = `${rect.top + rect.height}px`;
-      memoOptionPosition.left = `${rect.left}px`;
+    // fixme 이렇게 정리하는게 보기 좋은가? MemoOption Component 에 단점이 드러나는 듯?
+    // Initialize
+    const init = {
+      // 위젯 이동
+      dragMouseDown: (e) => emit('dragMouseDown', e),
+      // 메모 리스트에 포함된 메모인 경우 스타일 변경
+      memoInListStyle: computed(() => {
+        const styleObject = {};
+        if (!props.inList) {
+          styleObject.resize = 'both';
+        } else {
+          styleObject.width = '100%';
+          styleObject.height = '150px';
+        }
+        return styleObject;
+      }),
     };
-    // 메모 내용 작성
-    const updateWidget = (payload) => store.commit('widget/updateWidget', payload);
-    const updateMemoContents = (contents) => {
-      updateWidget({
-        widget: props.widget,
-        contents: contents,
-      });
+    // Memo Component
+    const memo = {
+      // 메모 닫기
+      closeMemo: () => {
+        if (!store.getDrag.value) {
+          store.hideWidget(props.widget);
+        }
+      },
+      // 더블클릭 해서 메모 열기
+      showMemo: () => emit('showMemo', props.widget),
     };
-    // 메모 삭제
-    const deleteWidget = (id) => store.commit('widget/deleteWidget', id);
-    const deleteMemo = () => {
-      deleteWidget(props.widget.id);
+    // MemoTextArea Component
+    const memoTextArea = {
+      updateMemoContents: (contents) => {
+        store.updateWidget({
+          widget: props.widget,
+          contents: contents,
+        });
+      },
     };
-
+    // MemoOption Component
+    const memoOption = {
+      optionWindow: ref(false),
+      memoOptionPosition: reactive({ top: '', left: '' }),
+      // 메모 옵션 클릭 시
+      clickMemoOption: (e) => {
+        memoOption.optionWindow.value = !memoOption.optionWindow.value;
+        const rect = e.currentTarget.getBoundingClientRect();
+        memoOption.memoOptionPosition.top = `${rect.top + rect.height}px`;
+        memoOption.memoOptionPosition.left = `${rect.left}px`;
+      },
+      // 메모 삭제
+      deleteMemo: () => store.deleteWidget(props.widget.id),
+    };
     return {
-      optionWindow,
-      dragMouseDown,
-      closeMemo,
-      memoInListStyle,
-      showMemo,
-      clickMemoOption,
-      memoOptionPosition,
-      updateMemoContents,
-      deleteMemo,
+      dragMouseDown: init.dragMouseDown,
+      memoInListStyle: init.memoInListStyle,
+      closeMemo: memo.closeMemo,
+      showMemo: memo.showMemo,
+      updateMemoContents: memoTextArea.updateMemoContents,
+      optionWindow: memoOption.optionWindow,
+      clickMemoOption: memoOption.clickMemoOption,
+      memoOptionPosition: memoOption.memoOptionPosition,
+      deleteMemo: memoOption.deleteMemo,
     };
   },
 };

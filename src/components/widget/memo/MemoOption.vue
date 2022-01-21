@@ -32,11 +32,15 @@ export default {
   position: absolute;
   z-index: 2147483647;
   vertical-align: center;
+  border: 1px solid $float-menu;
+  background-color: $menu-header;
 
   div {
-    border: 1px solid $float-menu;
-    background-color: $menu-header;
     padding: 2px 4px;
+
+    &:hover {
+      background-color: $float-menu;
+    }
   }
 }
 </style>

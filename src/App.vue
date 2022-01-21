@@ -1,5 +1,5 @@
 <template>
-  <div id="app" @click="test">
+  <div id="app">
     <div class="container">
       <Clock></Clock>
     </div>
@@ -18,18 +18,6 @@ export default {
     WidgetLoader,
     Clock,
   },
-  setup() {
-    const test = (e) => {
-      console.log("test");
-      e.stopPropagation()
-      e.stopImmediatePropagation()
-      return false;
-    }
-
-    return {
-      test
-    }
-  }
 };
 </script>
 
