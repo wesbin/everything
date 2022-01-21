@@ -33,41 +33,45 @@ export default {
     },
   },
   setup(props, { emit }) {
-    const store = useStore();
+    const _store = useStore();
+    const store = {
+      filterTypeWidgetList: computed(() => _store.getters['widget/filterTypeWidgetList']),
+      getDrag: computed(() => _store.getters['widget/getDrag']),
+      hideWidget: (widget) => _store.commit('widget/hideWidget', widget),
+      showWidget: (widget) => _store.commit('widget/showWidget', widget),
+      addWidget: (payload) => _store.dispatch('widget/addWidget', payload),
+    };
+    // Initialize
+    const init = {
+      dragMouseDown: (e) => emit('dragMouseDown', e),
+    };
 
-    const filterTypeWidgetList = computed(() => store.getters['widget/filterTypeWidgetList']);
-    // 메모 추가
-    const addWidget = (payload) => store.dispatch('widget/addWidget', payload);
-    const addMemo = () => {
-      if (!getDrag.value) {
-        addWidget({
-          widget: props.widget,
-          type: 'memo/Memo',
-          isSingle: false,
-          visible: false,
-          contents: '',
-        });
-      }
+    const memoList = {
+      // 메모 추가
+      addMemo: () => {
+        if (!store.getDrag.value) {
+          store.addWidget({
+            widget: props.widget,
+            type: 'memo/Memo',
+            isSingle: false,
+            visible: false,
+            contents: '',
+          });
+        }
+      },
+      // 메모 리스트 위젯 닫기
+      closeMemoList: () => {
+        if (!store.getDrag.value) {
+          store.hideWidget(props.widget);
+        }
+      },
     };
-    // 더블클릭해서 메모 열기
-    const showWidget = (widget) => store.commit('widget/showWidget', widget);
-    // 메모 리스트 위젯 닫기
-    const getDrag = computed(() => store.getters['widget/getDrag']);
-    const hideWidget = (widget) => store.commit('widget/hideWidget', widget);
-    const closeMemoList = () => {
-      if (!getDrag.value) {
-        hideWidget(props.widget);
-      }
-    };
-    // 위젯 이동
-    const dragMouseDown = (e) => emit('dragMouseDown', e);
 
     return {
-      addMemo,
-      showWidget,
-      closeMemoList,
-      dragMouseDown,
-      filterTypeWidgetList,
+      ...init,
+      ...memoList,
+      showWidget: store.showWidget,
+      filterTypeWidgetList: store.filterTypeWidgetList,
     };
   },
 };
