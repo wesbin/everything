@@ -20,16 +20,16 @@ export default {
   },
   setup() {
     const test = (e) => {
-      console.log("test");
-      e.stopPropagation()
-      e.stopImmediatePropagation()
+      console.log('test');
+      e.stopPropagation();
+      e.stopImmediatePropagation();
       return false;
-    }
+    };
 
     return {
-      test
-    }
-  }
+      test,
+    };
+  },
 };
 </script>
 
