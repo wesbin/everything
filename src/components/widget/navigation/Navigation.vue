@@ -41,10 +41,10 @@ export default {
 <style lang="scss" scoped>
 .float-menu {
   background: $background;
+  border: solid 2px $float-menu;
+  border-radius: 2px;
 
   &.open {
-    border: solid 2px $float-menu;
-    border-radius: 2px;
     width: 125px;
   }
 }

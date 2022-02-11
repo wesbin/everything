@@ -3,9 +3,6 @@
     <div class="container">
       <Clock></Clock>
     </div>
-    <input style="width: 100px; height: 100px" type="text" @input="updateInput" />
-    <button style="width: 100px; height: 100px" @click="getInputValue"></button>
-    <div style="width: 100px; height: 100px">{{ contents }}</div>
     <WidgetLoader></WidgetLoader>
   </div>
 </template>
@@ -21,24 +18,6 @@ export default {
     WidgetLoader,
     Clock,
   },
-  props: {
-    contents: {
-      type: String,
-    },
-  },
-  methods: {
-    updateInput(e) {
-      chrome.storage.sync.set({
-        good: e.target.value,
-      });
-    },
-    getInputValue() {
-      let _this = this;
-      chrome.storage.sync.get('good', (data) => {
-        _this.contents = data.good;
-      });
-    },
-  },
 };
 </script>
 
@@ -51,7 +30,7 @@ body {
   font-family: AppleSDGothicNeoL, sans-serif;
   color: $white-font;
   margin: 0;
-  //overflow: hidden;
+  overflow: hidden;
 }
 .container {
   background-color: $background;
