@@ -8,7 +8,6 @@
   },
   "action": {},
   "permissions": [
-    "tabs",
-    "storage"
+    "tabs"
   ]
 }
