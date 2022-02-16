@@ -1,3 +1,17 @@
+<script setup>
+const props = defineProps({
+  memoOptionPosition: {
+    required: true,
+    type: Object,
+  },
+});
+
+const emit = defineEmits(['showMemo', 'deleteMemo']);
+
+const showMemo = () => emit('showMemo');
+const deleteMemo = () => emit('deleteMemo');
+</script>
+
 <template>
   <div>
     <teleport to="body">
@@ -8,24 +22,6 @@
     </teleport>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'MemoOption',
-  props: {
-    memoOptionPosition: {
-      required: true,
-      type: Object,
-    },
-  },
-  setup(props, { emit }) {
-    return {
-      showMemo: () => emit('showMemo'),
-      deleteMemo: () => emit('deleteMemo'),
-    };
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .memo-option {

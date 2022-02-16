@@ -1,3 +1,14 @@
+<script setup>
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+
+const store = useStore();
+store.dispatch('clock/initClock');
+
+const getTime = computed(() => store.getters['clock/getTime']);
+const getDate = computed(() => store.getters['clock/getDate']);
+</script>
+
 <template>
   <div class="clock">
     <div class="time">
@@ -10,23 +21,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-
-export default {
-  name: 'Clock',
-  setup() {
-    const store = useStore();
-    store.dispatch('clock/initClock');
-    return {
-      getTime: computed(() => store.getters['clock/getTime']),
-      getDate: computed(() => store.getters['clock/getDate']),
-    };
-  },
-};
-</script>
 
 <style scoped>
 .clock {

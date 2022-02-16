@@ -1,3 +1,12 @@
+<script setup>
+const props = defineProps({
+  svgTitle: {
+    type: String,
+    required: true,
+  },
+});
+</script>
+
 <template>
   <div>
     <svg
@@ -66,18 +75,6 @@
     </svg>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'SVGLoader',
-  props: {
-    svgTitle: {
-      type: String,
-      required: true,
-    },
-  },
-};
-</script>
 
 <style scoped>
 svg {

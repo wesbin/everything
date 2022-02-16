@@ -1,26 +1,22 @@
+<script setup>
+const props = defineProps({
+  toggle: {
+    type: Boolean,
+    required: true,
+  },
+});
+
+const emit = defineEmits(['toggle']);
+
+const toggleMenu = () => emit('toggle');
+</script>
+
 <template>
   <button class="plus-minus" :class="{ open: toggle }" @click="toggleMenu">
     <span class="plus"></span>
     <span class="minus"></span>
   </button>
 </template>
-
-<script>
-export default {
-  name: 'ButtonPlusMinus',
-  props: {
-    toggle: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  setup(props, { emit }) {
-    return {
-      toggleMenu: () => emit('toggle'),
-    };
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .plus-minus {

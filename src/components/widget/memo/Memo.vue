@@ -1,3 +1,79 @@
+<script setup>
+import SVGLoader from '@/components/utils/SVGLoader';
+import MemoTextarea from '@/components/widget/memo/MemoTextarea';
+import MemoOption from '@/components/widget/memo/MemoOption';
+import { useStore } from 'vuex';
+import { computed, reactive, ref } from 'vue';
+
+const props = defineProps({
+  widget: {
+    type: Object,
+    required: true,
+  },
+  // 메모 리스트 안에 보여지는 메모의 경우
+  inList: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['dragMouseDown']);
+
+const _store = useStore();
+
+// 위젯 이동
+const dragMouseDown = (e) => emit('dragMouseDown', e);
+
+// 메모 리스트에 포함된 메모인 경우 스타일 변경
+const memoInListStyle = computed(() => {
+  const styleObject = {};
+  if (!props.inList) {
+    styleObject.resize = 'both';
+  } else {
+    styleObject.width = '100%';
+    styleObject.height = '150px';
+  }
+  return styleObject;
+});
+
+// 메모 닫기
+const getDrag = computed(() => _store.getters['widget/getDrag']);
+const hideWidget = (widget) => _store.commit('widget/hideWidget', widget);
+const closeMemo = () => {
+  if (!getDrag.value) {
+    hideWidget(props.widget);
+  }
+};
+// 더블클릭 해서 메모 열기
+const showMemo = () => emit('showMemo', props.widget);
+
+// 메모 내용 업데이트
+const updateWidget = (payload) => _store.commit('widget/updateWidget', payload);
+const updateMemoContents = (contents) => {
+  updateWidget({
+    widget: props.widget,
+    contents: contents,
+  });
+};
+
+// option 보이기 안 보이기
+const optionWindow = ref(false);
+// option 위치 설정
+const memoOptionPosition = reactive({ top: '', left: '' });
+
+// 메모 옵션 클릭 시
+const clickMemoOption = (e) => {
+  optionWindow.value = !optionWindow.value;
+  const rect = e.currentTarget.getBoundingClientRect();
+  memoOptionPosition.top = `${rect.top + rect.height}px`;
+  memoOptionPosition.left = `${rect.left}px`;
+};
+
+// 메모 삭제
+const deleteWidget = (id) => _store.commit('widget/deleteWidget', id);
+const deleteMemo = () => deleteWidget(props.widget.id);
+</script>
+
 <template>
   <div class="memo field-wrap --direction-column --shrink-0" :style="memoInListStyle">
     <div class="header field-wrap" @mousedown="dragMouseDown">
@@ -18,97 +94,6 @@
     <MemoTextarea @updateMemoContents="updateMemoContents" :contents="widget.contents"></MemoTextarea>
   </div>
 </template>
-
-<script>
-import { useStore } from 'vuex';
-import SVGLoader from '@/components/utils/SVGLoader';
-import MemoTextarea from '@/components/widget/memo/MemoTextarea';
-import { computed, reactive, ref } from 'vue';
-import MemoOption from '@/components/widget/memo/MemoOption';
-
-export default {
-  name: 'Memo',
-  components: { MemoOption, MemoTextarea, SVGLoader },
-  props: {
-    widget: {
-      type: Object,
-      required: true,
-    },
-    // 메모 리스트 안에 보여지는 메모의 경우
-    inList: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, { emit }) {
-    // Vuex
-    const _store = useStore();
-    const store = {
-      getDrag: computed(() => _store.getters['widget/getDrag']),
-      updateWidget: (payload) => _store.commit('widget/updateWidget', payload),
-      hideWidget: (widget) => _store.commit('widget/hideWidget', widget),
-      deleteWidget: (id) => _store.commit('widget/deleteWidget', id),
-    };
-    // fixme 이렇게 정리하는게 보기 좋은가? MemoOption Component 에 단점이 드러나는 듯?
-    // Initialize
-    const init = {
-      // 위젯 이동
-      dragMouseDown: (e) => emit('dragMouseDown', e),
-      // 메모 리스트에 포함된 메모인 경우 스타일 변경
-      memoInListStyle: computed(() => {
-        const styleObject = {};
-        if (!props.inList) {
-          styleObject.resize = 'both';
-        } else {
-          styleObject.width = '100%';
-          styleObject.height = '150px';
-        }
-        return styleObject;
-      }),
-    };
-    // Memo Component
-    const memo = {
-      // 메모 닫기
-      closeMemo: () => {
-        if (!store.getDrag.value) {
-          store.hideWidget(props.widget);
-        }
-      },
-      // 더블클릭 해서 메모 열기
-      showMemo: () => emit('showMemo', props.widget),
-    };
-    // MemoTextArea Component
-    const memoTextArea = {
-      updateMemoContents: (contents) => {
-        store.updateWidget({
-          widget: props.widget,
-          contents: contents,
-        });
-      },
-    };
-    // MemoOption Component
-    const memoOption = {
-      optionWindow: ref(false),
-      memoOptionPosition: reactive({ top: '', left: '' }),
-      // 메모 옵션 클릭 시
-      clickMemoOption: (e) => {
-        memoOption.optionWindow.value = !memoOption.optionWindow.value;
-        const rect = e.currentTarget.getBoundingClientRect();
-        memoOption.memoOptionPosition.top = `${rect.top + rect.height}px`;
-        memoOption.memoOptionPosition.left = `${rect.left}px`;
-      },
-      // 메모 삭제
-      deleteMemo: () => store.deleteWidget(props.widget.id),
-    };
-    return {
-      ...init,
-      ...memo,
-      ...memoTextArea,
-      ...memoOption,
-    };
-  },
-};
-</script>
 
 <style lang="scss" scoped>
 .memo {
