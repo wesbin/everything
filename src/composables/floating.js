@@ -13,7 +13,7 @@ export default (widget) => {
   // vuex
   const store = useStore();
   const getTopIndex = computed(() => store.getters['widget/getTopIndex']);
-  const setDrag = () => store.commit('widget/setDrag');
+  const setDrag = (bool) => store.commit('widget/setDrag', bool);
   const upIndex = () => store.commit('widget/upIndex');
   const updateWidget = (widget) => store.commit('widget/updateWidget', widget);
 
