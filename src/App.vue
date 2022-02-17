@@ -1,25 +1,14 @@
+<script setup>
+import Clock from '@/components/Clock';
+import WidgetLoader from '@/components/widget/WidgetLoader';
+</script>
+
 <template>
-  <div id="app">
-    <div class="container">
-      <Clock></Clock>
-    </div>
+  <div class="container">
+    <Clock></Clock>
     <WidgetLoader></WidgetLoader>
   </div>
 </template>
-
-<script>
-import Clock from '@/components/Clock';
-
-import WidgetLoader from '@/components/widget/WidgetLoader';
-
-export default {
-  name: 'App',
-  components: {
-    WidgetLoader,
-    Clock,
-  },
-};
-</script>
 
 <style lang="scss">
 @font-face {

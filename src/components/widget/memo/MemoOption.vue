@@ -14,10 +14,10 @@ const deleteMemo = () => emit('deleteMemo');
 
 <template>
   <div>
-    <teleport to="body">
+    <teleport to="#app">
       <div class="memo-option click-menu" :style="memoOptionPosition">
-        <div @click="showMemo">메모 열기</div>
-        <div @click="deleteMemo">메모 삭제</div>
+        <div @click="showMemo">열기</div>
+        <div @click="deleteMemo">삭제</div>
       </div>
     </teleport>
   </div>
@@ -30,6 +30,8 @@ const deleteMemo = () => emit('deleteMemo');
   vertical-align: center;
   border: 1px solid $float-menu;
   background-color: $menu-header;
+  width: 45px;
+  text-align: center;
 
   div {
     padding: 2px 4px;
