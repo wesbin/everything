@@ -8,7 +8,9 @@ const widget = {
       {
         type: 'navigation/Navigation',
         visible: true,
-        style: {},
+        style: {
+          'z-index': 2147483647
+        },
       },
     ],
     // 현재 위젯 중 z-index 최대 값

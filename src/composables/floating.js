@@ -95,6 +95,7 @@ export default (widget) => {
     });
   };
   // 위젯 클릭 시 z-index 가장 앞으로
+  // todo navigation 클릭 했을 때는 z-index 변경이 되지 않아야 한다. 상단 고정 기능
   const focusOn = () => {
     upIndex();
     updateWidget({
