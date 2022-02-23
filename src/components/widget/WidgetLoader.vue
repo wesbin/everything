@@ -9,7 +9,7 @@ const getWidgetList = computed(() => store.getters['widget/getWidgetList']);
 </script>
 
 <template>
-  <template v-for="(widget, index) in this.getWidgetList" :key="index">
+  <template v-for="(widget, index) in getWidgetList" :key="index">
     <Widget :widget="widget"></Widget>
   </template>
 </template>

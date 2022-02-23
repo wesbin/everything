@@ -8,12 +8,15 @@
 //   showReadme();
 // });
 
-chrome.tabs.onCreated.addListener(tab => please(tab));
+chrome.tabs.onCreated.addListener((tab) => please(tab));
 
 async function please(tab) {
-  if (tab.pendingUrl === 'edge://newtab/') {
-    let url = chrome.runtime.getURL("index.html");
-    await chrome.tabs.update(tab.id, {url})
+  console.log(tab);
+  console.log(tab.pendingUrl);
+  const url = ['edge://newtab/', 'chrome://newtab/'];
+  if (url.includes(tab.pendingUrl)) {
+    let url = chrome.runtime.getURL('index.html');
+    await chrome.tabs.update(tab.id, { url });
   }
 }
 

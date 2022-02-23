@@ -12,12 +12,12 @@ const getDate = computed(() => store.getters['clock/getDate']);
 <template>
   <div class="clock">
     <div class="time">
-      {{ this.getTime.hours }}
+      {{ getTime.hours }}
       <span class="blink">:</span>
-      {{ this.getTime.minutes }}
+      {{ getTime.minutes }}
     </div>
     <div class="date">
-      {{ this.getDate }}
+      {{ getDate }}
     </div>
   </div>
 </template>

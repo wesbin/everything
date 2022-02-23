@@ -19,4 +19,5 @@ module.exports = {
     devtool: 'cheap-source-map',
     // devtool: 'inline-cheap-source-map'
   },
+  // parallel: false,
 };
