@@ -15,9 +15,6 @@ module.exports = {
   },
   lintOnSave: false,
   configureWebpack: {
-    // devtool: 'inline-source-map',
     devtool: 'cheap-source-map',
-    // devtool: 'inline-cheap-source-map'
   },
-  // parallel: false,
 };

@@ -9,7 +9,7 @@ const widget = {
         type: 'navigation/Navigation',
         visible: true,
         style: {
-          'z-index': 2147483647
+          'z-index': 2147483647,
         },
       },
     ],
