@@ -3,11 +3,8 @@
   "description": "Dashboard",
   "version": "0.0.1",
   "manifest_version": 3,
-  "background": {
-    "service_worker": "index.js"
-  },
   "action": {},
-  "permissions": [
-    "tabs"
-  ]
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  }
 }
