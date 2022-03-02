@@ -1,24 +1,7 @@
-# yuio
+# everything
 
-## Project setup
-```
-yarn install
-```
+그저 열려있는채인 노트북이 신경쓰여 시작한 토이 프로젝트입니다.
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+크롬 확장 프로그램으로 만들어진 [everything](https://chrome.google.com/webstore/detail/everything/kgpebaibpealpmokeabkbleegpiahmnf?hl=ko&authuser=0) 은 바탕화면 대신으로
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+현재는 단순한 시계와 간단한 메모 기능을 제공하고 있습니다. 추후에는 더 다양한 기능들을 제공할 수 있게 업데이트 할 예정입니다.
