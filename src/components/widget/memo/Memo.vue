@@ -17,7 +17,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['dragMouseDown']);
+const emit = defineEmits(['dragMouseDown', 'showMemo']);
 
 const _store = useStore();
 
@@ -75,7 +75,7 @@ const deleteMemo = () => deleteWidget(props.widget.id);
 </script>
 
 <template>
-  <div class="memo field-wrap --direction-column --shrink-0" :style="memoInListStyle">
+  <div class="memo field-wrap --direction-column --shrink-0" :style="memoInListStyle" @resize="reSize">
     <div class="header field-wrap" @mousedown="dragMouseDown">
       <div class="field" @dblclick="showMemo"></div>
       <div class="action-area field --grow-0">
